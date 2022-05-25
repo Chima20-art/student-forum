@@ -12,7 +12,7 @@ const useProtectedRoute = () => {
     }
   }, [user, loadingUser]);
 
-  return user;
+  return [user, loadingUser];
 };
 
 export default useProtectedRoute;

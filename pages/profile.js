@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import useProtectedRoute from '../context/useProtectedRoute';
 
 const Profile = () => {
-  const user = useProtectedRoute();
+  const [user, loadingUser] = useProtectedRoute();
 
   return (
     <div>
