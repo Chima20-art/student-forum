@@ -3,6 +3,8 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 
 import { useSession, signIn, signOut } from 'next-auth/react';
+import LoginPage from '../components/loginPage';
+import ResponsiveAppBar from '../components/ResponsiveAppBar';
 
 export default function Home() {
   const { data: session, status } = useSession(); // Hi chaima check this to be able to use https://next-auth.js.org/tutorials/securing-pages-and-api-routes
@@ -16,9 +18,10 @@ export default function Home() {
   }
 
   if (status == 'unauthenticated') {
+    //not logged in
     return (
       <div className={styles.container}>
-        <h1>not logged in..</h1>
+        <LoginPage />
         <button onClick={() => signIn('google')}>login with google</button>
       </div>
     );
@@ -30,7 +33,7 @@ export default function Home() {
       <br />
 
       {status == 'unauthenticated' ? (
-        <button onClick={signIn}>login with google</button>
+        <button onClick={() => signIn('google')}>login with google</button>
       ) : (
         <button onClick={signOut}>logout</button>
       )}
