@@ -12,11 +12,14 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { makeStyles } from '@mui/styles';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+import { styled } from '@mui/material/styles';
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = (props) => {
+  const { status } = props;
+  const classes = useStyles();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -34,6 +37,24 @@ const ResponsiveAppBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const pages = [
+    {
+      name: 'Home',
+      path: '/',
+    },
+    {
+      name: 'News',
+      path: '/news',
+    },
+    {
+      name: 'Posts',
+      path: '/posts',
+    },
+    {
+      name: 'Posts',
+      path: '/posts',
+    },
+  ];
 
   return (
     <AppBar position="static">
@@ -87,11 +108,13 @@ const ResponsiveAppBar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              {status == 'authenticated'
+                ? pages.map((page) => (
+                    <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">{page.name}</Typography>
+                    </MenuItem>
+                  ))
+                : null}
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -113,24 +136,43 @@ const ResponsiveAppBar = () => {
           >
             LOGO
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
+          <Box sx={{ flexGrow: 3, display: { xs: 'none', md: 'flex' } }}>
+            {status == 'authenticated'
+              ? pages.map((page) => (
+                  <Button
+                    key={page.name}
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: 'white', display: 'block' }}
+                  >
+                    {page.name}
+                  </Button>
+                ))
+              : null}
           </Box>
+          {status == 'unauthenticated' ? (
+            <Button
+              onClick={() => signIn('google')}
+              variant="outlined"
+              className={classes.button}
+            >
+              LOGIN WITH GOOGLE
+            </Button>
+          ) : (
+            console.log('user logged')
+          )}
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box
+            sx={{ flexGrow: 0 }}
+            className={
+              status == 'unauthenticated' ? classes.none : classes.show
+            }
+          >
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
+
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
@@ -147,11 +189,14 @@ const ResponsiveAppBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem key="profile" onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">Profile</Typography>
+              </MenuItem>
+              <MenuItem key="profile" onClick={handleCloseUserMenu}>
+                <Typography textAlign="center" onClick={signOut}>
+                  Logout
+                </Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
@@ -159,4 +204,14 @@ const ResponsiveAppBar = () => {
     </AppBar>
   );
 };
+
 export default ResponsiveAppBar;
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    backgroundColor: 'white !important',
+  },
+  none: {
+    display: 'none',
+  },
+}));
