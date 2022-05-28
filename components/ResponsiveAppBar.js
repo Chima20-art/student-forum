@@ -55,6 +55,10 @@ const ResponsiveAppBar = (props) => {
       path: '/posts',
     },
   ];
+  const loginPages = [
+    { name: 'About', path: '/' },
+    { name: 'Our Aims', path: '/Aims' },
+  ];
 
   return (
     <AppBar position="static">
@@ -149,7 +153,31 @@ const ResponsiveAppBar = (props) => {
                 ))
               : null}
           </Box>
-          {status == 'unauthenticated' ? (
+          <Box
+            sx={{
+              flexGrow: 3,
+              display: { xs: 'none', md: 'flex' },
+              justifyContent: { xs: 'none', md: 'flex-end' },
+            }}
+          >
+            {status == 'unauthenticated'
+              ? loginPages.map((loginPage) => (
+                  <Button
+                    key={loginPage.name}
+                    onClick={handleCloseNavMenu}
+                    sx={{
+                      my: 2,
+                      display: 'block',
+                      color: 'white',
+                    }}
+                  >
+                    {loginPage.name}
+                  </Button>
+                ))
+              : console.log('user logged')}
+          </Box>
+          <Box>
+            {' '}
             <Button
               onClick={() => signIn('google')}
               variant="outlined"
@@ -157,9 +185,7 @@ const ResponsiveAppBar = (props) => {
             >
               LOGIN WITH GOOGLE
             </Button>
-          ) : (
-            console.log('user logged')
-          )}
+          </Box>
 
           <Box
             sx={{ flexGrow: 0 }}
