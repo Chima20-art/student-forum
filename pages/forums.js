@@ -1,18 +1,29 @@
 import ResponsiveAppBar from '../components/ResponsiveAppBar';
 import { Box } from '@mui/system';
 import { useSession } from 'next-auth/react';
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import Paper from '@mui/material/Paper';
 
+<style>
+  @import
+  url('https://fonts.googleapis.com/css2?family=Londrina+Solid&family=M+PLUS+Code+Latin:wght@600&family=Nanum+Gothic&family=Raleway:wght@300&display=swap');
+</style>;
 export default function Forums() {
   const { data: session, status } = useSession();
   const popularTopics = [
-    { icon: 'khbvkh', name: 'music' },
-    { icon: 'jebf', name: 'life' },
-    { icon: 'vfbf', name: 'entertaiment' },
-    { icon: 'kvkh', name: 'high school' },
-    { icon: 'bbdv', name: 'exams' },
-    { icon: 'deveg', name: 'money' },
-    { icon: 'wegg', name: 'jobs' },
+    { icon: 'AccountBalanceIcon', name: 'Movies' },
+    { icon: 'AccountBalanceIcon', name: 'University' },
+    { icon: 'AccountBalanceIcon', name: 'Study Help' },
+    { icon: 'AccountBalanceIcon', name: 'Music' },
+    { icon: 'AccountBalanceIcon', name: 'Gaming' },
+    { icon: 'AccountBalanceIcon', name: 'Jobs' },
+    { icon: 'AccountBalanceIcon', name: 'Money' },
+    { icon: 'AccountBalanceIcon', name: 'Careers' },
+    { icon: 'AccountBalanceIcon', name: 'Sports & Health' },
+    { icon: 'AccountBalanceIcon', name: 'Hobbies' },
+    { icon: 'AccountBalanceIcon', name: 'Pop Culture' },
+    { icon: 'AccountBalanceIcon', name: 'Fashion & beauty' },
   ];
 
   return (
@@ -20,27 +31,76 @@ export default function Forums() {
       <ResponsiveAppBar status={status} />
       <Grid
         sx={{
-          maxWidth: { md: '85%' },
+          maxWidth: { md: '85%', xs: '98%' },
           margin: 'auto',
-
-          border: '2px black solid',
         }}
       >
-        <Grid
+        <Typography
           sx={{
             color: '#2668F0',
             fontStyle: 'bold',
-            fontSize: { xs: '35px', md: '40px' },
+            fontSize: { xs: '30px', md: '40px' },
             fontWeight: 700,
             letterSpacing: '0.4px',
             lineHeight: { md: '1.5em', xs: '0.8' },
             fontFamily: 'Londrina Solid',
-            marginTop: '0px 25px',
+            margin: '25px 0px',
           }}
         >
           Student Edge Youth Forums
-        </Grid>
-        <Box></Box>
+        </Typography>
+        <Paper elevation={2}>
+          <Grid
+            sx={{
+              padding: '30px',
+            }}
+          >
+            <Typography
+              borderBottom="1px solid #DCDCDC"
+              sx={{
+                fontFamily: 'Raleway',
+                fontWeight: 700,
+                fontSize: { xs: '18px', md: '20px' },
+                paddingBottom: '10px',
+              }}
+            >
+              Popular Topics
+            </Typography>
+
+            <Grid
+              container
+              sx={{
+                display: 'flex',
+              }}
+              paddingTop="15px"
+            >
+              {' '}
+              {popularTopics.map((topic) => (
+                <Grid
+                  container
+                  item
+                  xs={6}
+                  md={3}
+                  key={topic.name}
+                  margin="10px 0px"
+                  alignItems="center"
+                >
+                  <AccountBalanceIcon />
+                  <Typography
+                    marginLeft="7px"
+                    sx={{
+                      fontFamily: 'monospace',
+                      fontWeight: 400,
+                      fontSize: { xs: '15px', md: '18px' },
+                    }}
+                  >
+                    {topic.name}
+                  </Typography>
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
+        </Paper>
       </Grid>
     </Box>
   );
