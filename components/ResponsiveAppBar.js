@@ -14,6 +14,8 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { makeStyles } from '@mui/styles';
 import { useSession, signIn, signOut } from 'next-auth/react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 import { styled } from '@mui/material/styles';
 
@@ -57,8 +59,12 @@ const ResponsiveAppBar = (props) => {
   ];
   const loginPages = [
     { name: 'About', path: '/' },
+    { name: 'Forums', path: '/forums' },
     { name: 'Our Aims', path: '/Aims' },
   ];
+
+  const src =
+    'https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg';
 
   return (
     <AppBar position="static">
@@ -162,17 +168,19 @@ const ResponsiveAppBar = (props) => {
           >
             {status == 'unauthenticated'
               ? loginPages.map((loginPage) => (
-                  <Button
-                    key={loginPage.name}
-                    onClick={handleCloseNavMenu}
-                    sx={{
-                      my: 2,
-                      display: 'block',
-                      color: 'white',
-                    }}
-                  >
-                    {loginPage.name}
-                  </Button>
+                  <Link href={loginPage.path} key={loginPage.name}>
+                    <Button
+                      key={loginPage.name}
+                      onClick={handleCloseNavMenu}
+                      sx={{
+                        my: 2,
+                        display: 'block',
+                        color: 'white',
+                      }}
+                    >
+                      {loginPage.name}
+                    </Button>
+                  </Link>
                 ))
               : console.log('user logged')}
           </Box>
@@ -183,7 +191,29 @@ const ResponsiveAppBar = (props) => {
               variant="outlined"
               className={classes.button}
             >
-              LOGIN WITH GOOGLE
+              <Box
+                className={classes.button}
+                sx={{
+                  display: { xs: 'none', md: 'flex' },
+                  justifyContent: 'center',
+                  borderRadius: '2px',
+                  fontSize: '10px',
+                }}
+                width={40}
+                height={40}
+                backgroundColor="white"
+              >
+                <Image
+                  loader={() => src}
+                  src={src}
+                  alt="google"
+                  width={15}
+                  height={15}
+                  border-radius={2}
+                  backgroundColor="white"
+                />
+              </Box>
+              <Box fontSize={12}>sign in with google</Box>
             </Button>
           </Box>
 
