@@ -4,11 +4,8 @@ import { useSession } from 'next-auth/react';
 import { Grid, Typography } from '@mui/material';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import Paper from '@mui/material/Paper';
+import Discussions from '../components/discussions';
 
-<style>
-  @import
-  url('https://fonts.googleapis.com/css2?family=Londrina+Solid&family=M+PLUS+Code+Latin:wght@600&family=Nanum+Gothic&family=Raleway:wght@300&display=swap');
-</style>;
 export default function Forums() {
   const { data: session, status } = useSession();
   const popularTopics = [
@@ -102,6 +99,7 @@ export default function Forums() {
           </Grid>
         </Paper>
       </Grid>
+      <Discussions />
     </Box>
   );
 }
