@@ -11,13 +11,14 @@ import PushPinIcon from '@mui/icons-material/PushPin';
 import { blue } from '@mui/material/colors';
 import { pink } from '@mui/material/colors';
 import ModeCommentIcon from '@mui/icons-material/ModeComment';
-
+import { makeStyles } from '@mui/styles';
 export default function Discussions() {
   const [menuItem, setMenuItem] = useState('');
 
   const handleChange = (event) => {
     setMenuItem(event.target.value);
   };
+  const classes = useStyles();
   return (
     <Paper
       elevation={3}
@@ -76,7 +77,8 @@ export default function Discussions() {
               This is a post title to be discussed...
             </Typography>
             <Typography sx={{ color: '#acacac', fontSize: '13px' }}>
-              Started about 6 years ago by Elisa M
+              Started about 6 years ago by{' '}
+              <span className={classes.userName}>Elisa M</span>
             </Typography>
           </Grid>
         </Grid>
@@ -87,3 +89,11 @@ export default function Discussions() {
     </Paper>
   );
 }
+
+const useStyles = makeStyles((theme) => ({
+  userName: {
+    color: 'black',
+    textDecoration: 'underline',
+    cursor: 'pointer',
+  },
+}));
