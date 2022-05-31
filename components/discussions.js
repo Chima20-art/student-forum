@@ -1,8 +1,6 @@
 import { Paper } from '@mui/material';
 import { Grid } from '@mui/material';
-import { Box } from '@mui/material';
 import { Typography } from '@mui/material';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -25,7 +23,7 @@ export default function Discussions() {
         justifyContent: 'center',
       }}
     >
-      <container container>
+      <Grid container>
         <Grid
           item
           key="category button"
@@ -54,7 +52,7 @@ export default function Discussions() {
         <Discussion />
         <Discussion />
         <Discussion />
-      </container>
+      </Grid>
     </Paper>
   );
 }

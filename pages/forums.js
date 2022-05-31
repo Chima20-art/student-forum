@@ -6,7 +6,7 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import Paper from '@mui/material/Paper';
 import Discussions from '../components/discussions';
 import AddDiscussion from '../components/addDiscussion';
-
+import Link from 'next/link';
 export default function Forums() {
   const { data: session, status } = useSession();
   const popularTopics = [
@@ -83,17 +83,27 @@ export default function Forums() {
                   margin="10px 0px"
                   alignItems="center"
                 >
-                  <AccountBalanceIcon />
-                  <Typography
-                    marginLeft="7px"
-                    sx={{
-                      fontFamily: 'monospace',
-                      fontWeight: 400,
-                      fontSize: { xs: '15px', md: '18px' },
-                    }}
-                  >
-                    {topic.name}
-                  </Typography>
+                  <Link href={'/forums/' + topic.name} key={topic.name}>
+                    <a
+                      style={{
+                        display: 'flex',
+                        color: 'black',
+                      }}
+                    >
+                      <AccountBalanceIcon />
+                      <Typography
+                        component="p"
+                        marginLeft="7px"
+                        sx={{
+                          fontFamily: 'monospace',
+                          fontWeight: 400,
+                          fontSize: { xs: '15px', md: '18px' },
+                        }}
+                      >
+                        {topic.name}
+                      </Typography>
+                    </a>
+                  </Link>
                 </Grid>
               ))}
             </Grid>

@@ -166,23 +166,22 @@ const ResponsiveAppBar = (props) => {
               justifyContent: { xs: 'none', md: 'flex-end' },
             }}
           >
-            {status == 'unauthenticated'
-              ? loginPages.map((loginPage) => (
-                  <Link href={loginPage.path} key={loginPage.name}>
-                    <Button
-                      key={loginPage.name}
-                      onClick={handleCloseNavMenu}
-                      sx={{
-                        my: 2,
-                        display: 'block',
-                        color: 'white',
-                      }}
-                    >
-                      {loginPage.name}
-                    </Button>
-                  </Link>
-                ))
-              : console.log('user logged')}
+            {status == 'unauthenticated' &&
+              loginPages.map((loginPage) => (
+                <Link href={loginPage.path} key={loginPage.name}>
+                  <Button
+                    key={loginPage.name}
+                    onClick={handleCloseNavMenu}
+                    sx={{
+                      my: 2,
+                      display: 'block',
+                      color: 'white',
+                    }}
+                  >
+                    {loginPage.name}
+                  </Button>
+                </Link>
+              ))}
           </Box>
           <Box>
             {' '}
@@ -219,45 +218,41 @@ const ResponsiveAppBar = (props) => {
               <Box fontSize={12}>sign in with google</Box>
             </Button>
           </Box>
+          {status == 'authenticated' && (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
 
-          <Box
-            sx={{ flexGrow: 0 }}
-            className={
-              status == 'unauthenticated' ? classes.none : classes.show
-            }
-          >
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <MenuItem key="profile" onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Profile</Typography>
-              </MenuItem>
-              <MenuItem key="profile" onClick={handleCloseUserMenu}>
-                <Typography textAlign="center" onClick={signOut}>
-                  Logout
-                </Typography>
-              </MenuItem>
-            </Menu>
-          </Box>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <MenuItem key="profile" onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">Profile</Typography>
+                </MenuItem>
+                <MenuItem key="profile" onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center" onClick={signOut}>
+                    Logout
+                  </Typography>
+                </MenuItem>
+              </Menu>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
