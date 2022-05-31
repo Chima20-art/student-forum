@@ -120,24 +120,6 @@ export default function Discussions() {
             </Grid>
           </Grid>
           <Grid item xs={7} container direction="column" sx={{}}>
-            <Grid
-              container
-              item
-              sx={{
-                alignItems: 'center',
-                fontSize: '14px',
-                color: grey[400],
-              }}
-            >
-              <RemoveRedEyeIcon
-                sx={{
-                  height: '25px',
-                  width: '15px',
-                  marginRight: '5px',
-                }}
-              />
-              <Typography sx={{ fontSize: '12px' }}>9800 views</Typography>
-            </Grid>
             <Grid container item sx={{ alignItems: 'center' }}>
               <FavoriteIcon
                 sx={{
