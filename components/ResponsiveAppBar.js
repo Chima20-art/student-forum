@@ -188,8 +188,14 @@ const ResponsiveAppBar = (props) => {
             {' '}
             <Button
               onClick={() => signIn('google')}
-              variant="outlined"
-              className={classes.button}
+              variant="contained"
+              size="small"
+              sx={{
+                color: '#1A76D2',
+
+                backgroundColor: 'white',
+                '&:hover': { backgroundColor: '#fff' },
+              }}
             >
               <Box
                 className={classes.button}
@@ -201,7 +207,6 @@ const ResponsiveAppBar = (props) => {
                 }}
                 width={40}
                 height={40}
-                backgroundColor="white"
               >
                 <Image
                   loader={() => src}
@@ -209,8 +214,6 @@ const ResponsiveAppBar = (props) => {
                   alt="google"
                   width={15}
                   height={15}
-                  border-radius={2}
-                  backgroundColor="white"
                 />
               </Box>
               <Box fontSize={12}>sign in with google</Box>
@@ -264,9 +267,6 @@ const ResponsiveAppBar = (props) => {
 export default ResponsiveAppBar;
 
 const useStyles = makeStyles((theme) => ({
-  button: {
-    backgroundColor: 'white !important',
-  },
   none: {
     display: 'none',
   },

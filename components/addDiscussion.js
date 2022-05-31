@@ -30,9 +30,9 @@ export default function AddDiscussion() {
         sx={{
           fontSize: '1.1em',
           fontWeight: '100',
-          color: 'gray',
+          color: '#acacac',
           textAlign: 'center',
-          margin: '40px 0px 20px 0px',
+          margin: '35px 0px 20px 0px',
         }}
       >
         How about starting a new conversation by creating a new post!
