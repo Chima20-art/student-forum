@@ -5,6 +5,7 @@ import { Grid, Typography } from '@mui/material';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import Paper from '@mui/material/Paper';
 import Discussions from '../components/discussions';
+import AddDiscussion from '../components/addDiscussion';
 
 export default function Forums() {
   const { data: session, status } = useSession();
@@ -100,6 +101,7 @@ export default function Forums() {
         </Paper>
       </Grid>
       <Discussions />
+      <AddDiscussion />
     </Box>
   );
 }
