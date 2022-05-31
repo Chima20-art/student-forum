@@ -11,6 +11,7 @@ import ResponsiveAppBar from '../../components/ResponsiveAppBar';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { makeStyles } from '@mui/styles';
+import AddDiscussion from '../../components/addDiscussion';
 
 const CategoryPage = (props) => {
   const classes = useStyles;
@@ -76,6 +77,7 @@ const CategoryPage = (props) => {
             <Discussion />
           </Grid>
         </Paper>
+        <AddDiscussion />
       </Grid>
     </Grid>
   );

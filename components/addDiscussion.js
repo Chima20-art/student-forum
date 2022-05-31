@@ -7,8 +7,7 @@ export default function AddDiscussion() {
       container
       elevation={3}
       sx={{
-        width: { xs: '95%', md: '85%' },
-        margin: '20px auto',
+        margin: '20px 0px',
         padding: '30px',
         justifyContent: 'center',
         alignItems: 'center',
