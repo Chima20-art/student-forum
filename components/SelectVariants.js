@@ -32,7 +32,7 @@ export default function SelectVariants() {
       <FormControl
         variant="standard"
         sx={{
-          width: '20%',
+          width: '30%',
         }}
       >
         <InputLabel id="demo-simple-select-standard-label">
@@ -44,6 +44,7 @@ export default function SelectVariants() {
           value={category}
           onChange={handleChange}
           label="Category"
+          sx={{ width: '100%' }}
         >
           <MenuItem value="">
             <em>None</em>
