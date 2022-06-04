@@ -5,7 +5,7 @@ import { makeStyles } from '@mui/styles';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import LoginPage from '../components/loginPage';
 import ResponsiveAppBar from '../components/ResponsiveAppBar';
-import * as React from 'react';
+import { useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -14,11 +14,27 @@ import {
   addPostComment,
   createComment,
   createPost,
+  getAllPosts,
 } from '../utils/backendAPI';
 
 export default function Home() {
   const { data: session, status } = useSession();
+
+  createPost();
+
   // Hi chaima check this to be able to use https://next-auth.js.org/tutorials/securing-pages-and-api-routes
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getAllPosts();
+      console.log('data ', data);
+      const comment = await createComment('tao', 'wrong');
+      console.log('comment', comment);
+      const post = await createPost('chaimae', 'it s a post', 'life');
+      console.log('post', post);
+    }
+    fetchData();
+  }, []);
 
   if (status == 'loading') {
     return (
@@ -27,12 +43,6 @@ export default function Home() {
       </div>
     );
   }
-  createPost('n', 'e', 'r');
-  createComment('chaima', "it's your first step");
-  addPostComment(
-    '0eea10d9fa62ddcc8b2d604039154467',
-    '000c3f1d683700653912c104b310ce7b'
-  );
 
   return (
     <Box>
