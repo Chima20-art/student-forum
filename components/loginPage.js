@@ -103,6 +103,7 @@ export default function LoginPage() {
         }}
       >
         <Grid
+          item
           xs={12}
           md={7}
           sx={{
@@ -135,6 +136,7 @@ export default function LoginPage() {
           </Typography>
         </Grid>
         <Grid
+          item
           md={4}
           sx={{
             display: 'flex',
