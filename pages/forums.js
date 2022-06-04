@@ -7,6 +7,8 @@ import Paper from '@mui/material/Paper';
 import Discussions from '../components/discussions';
 import AddDiscussion from '../components/addDiscussion';
 import Link from 'next/link';
+import { TextField } from '@mui/material';
+
 export default function Forums() {
   const { data: session, status } = useSession();
   const popularTopics = [

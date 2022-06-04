@@ -1,5 +1,6 @@
 import { Paper, Typography, Button } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import Link from 'next/link';
 
 export default function AddDiscussion() {
   return (
@@ -37,18 +38,21 @@ export default function AddDiscussion() {
         How about starting a new conversation by creating a new post!
       </Typography>
       <Typography align="center">
-        <Button
-          item
-          sx={{
-            color: 'white',
-            backgroundColor: '#2668F1',
-            padding: '15px',
-            borderRadius: '25px',
-          }}
-          startIcon={<AddCircleIcon />}
-        >
-          create a thread{' '}
-        </Button>
+        <Link href="/createDiscussion" key="createDiscussion">
+          <Button
+            item
+            sx={{
+              color: 'white',
+              backgroundColor: '#2668F1',
+              padding: '15px',
+              borderRadius: '25px',
+              '&:hover': { backgroundColor: '#2668F9' },
+            }}
+            startIcon={<AddCircleIcon />}
+          >
+            create a thread{''}
+          </Button>
+        </Link>
       </Typography>
     </Paper>
   );

@@ -60,7 +60,7 @@ const ResponsiveAppBar = (props) => {
   const loginPages = [
     { name: 'About', path: '/' },
     { name: 'Forums', path: '/forums' },
-    { name: 'Our Aims', path: '/Aims' },
+    { name: 'Our Aims', path: '/aims' },
   ];
 
   const src =
