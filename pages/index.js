@@ -9,9 +9,11 @@ import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
+import { createPost } from '../utils/backendAPI';
 
 export default function Home() {
-  const { data: session, status } = useSession(); // Hi chaima check this to be able to use https://next-auth.js.org/tutorials/securing-pages-and-api-routes
+  const { data: session, status } = useSession();
+  // Hi chaima check this to be able to use https://next-auth.js.org/tutorials/securing-pages-and-api-routes
 
   if (status == 'loading') {
     return (
@@ -20,6 +22,7 @@ export default function Home() {
       </div>
     );
   }
+  createPost('n', 'e', 'r');
 
   return (
     <Box>
