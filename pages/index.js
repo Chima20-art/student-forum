@@ -9,7 +9,12 @@ import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import { createPost } from '../utils/backendAPI';
+import {
+  addCommentLike,
+  addPostComment,
+  createComment,
+  createPost,
+} from '../utils/backendAPI';
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -23,6 +28,11 @@ export default function Home() {
     );
   }
   createPost('n', 'e', 'r');
+  createComment('chaima', "it's your first step");
+  addPostComment(
+    '0eea10d9fa62ddcc8b2d604039154467',
+    '000c3f1d683700653912c104b310ce7b'
+  );
 
   return (
     <Box>
