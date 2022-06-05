@@ -90,3 +90,97 @@ export async function getAllPosts() {
     return null;
   }
 }
+export async function addPostLike(userId, postId) {
+  try {
+    let response = await fetch(
+      'https://us-central1-studentforum-f11ce.cloudfunctions.net/addPostLike',
+      {
+        method: 'POST', // or 'PUT'
+        redirect: 'follow',
+        body: JSON.stringify({
+          userId,
+          postId,
+        }),
+      }
+    );
+    console.log('response ', response);
+    let responseText = await response.text();
+    let json = await JSON.parse(responseText);
+
+    return json;
+  } catch (error) {
+    console.log('there was an error calling addPostLike');
+    console.log(error);
+    return null;
+  }
+}
+export async function getPostsByCategory(category, cursor = 0) {
+  try {
+    let response = await fetch(
+      'https://us-central1-studentforum-f11ce.cloudfunctions.net/getPostsByCategory',
+      {
+        method: 'POST', // or 'PUT'
+        redirect: 'follow',
+        body: JSON.stringify({
+          category,
+          cursor,
+        }),
+      }
+    );
+    let responseText = await response.text();
+    let json = await JSON.parse(responseText);
+
+    return json;
+  } catch (error) {
+    console.log('there was an error calling getPostsByCategory');
+    console.log(error);
+    return null;
+  }
+}
+export async function createCategory(name, description) {
+  try {
+    let response = await fetch(
+      'https://us-central1-studentforum-f11ce.cloudfunctions.net/createCategory',
+      {
+        method: 'POST', // or 'PUT'
+
+        body: JSON.stringify({
+          name,
+          description,
+        }),
+      }
+    );
+    console.log('response ', response);
+    let responseText = await response.text();
+    let json = await JSON.parse(responseText);
+
+    return json;
+  } catch (error) {
+    console.log('there was an error calling createCategory');
+    console.log(error);
+    return null;
+  }
+}
+export async function getPost(id) {
+  try {
+    let response = await fetch(
+      'https://us-central1-studentforum-f11ce.cloudfunctions.net/getPost',
+      {
+        method: 'POST', // or 'PUT'
+
+        body: JSON.stringify({
+          id,
+        }),
+      }
+    );
+
+    let responseText = await response.text();
+    let json = await JSON.parse(responseText);
+    console.log('post by id', json);
+    return json;
+  } catch (error) {
+    console.log('there was an error calling getPost');
+    console.log(error);
+    return null;
+  }
+}

@@ -12,26 +12,44 @@ import Container from '@mui/material/Container';
 import {
   addCommentLike,
   addPostComment,
+  addPostLike,
+  createCategory,
   createComment,
   createPost,
   getAllPosts,
+  getPost,
+  getPostsByCategory,
 } from '../utils/backendAPI';
 
 export default function Home() {
   const { data: session, status } = useSession();
 
-  createPost();
+  //createPost();
 
   // Hi chaima check this to be able to use https://next-auth.js.org/tutorials/securing-pages-and-api-routes
 
   useEffect(() => {
     async function fetchData() {
-      const data = await getAllPosts();
+      /* const data = await getAllPosts();
       console.log('data ', data);
       const comment = await createComment('tao', 'wrong');
       console.log('comment', comment);
-      const post = await createPost('chaimae', 'it s a post', 'life');
+      const post = await createPost(
+        'Sami',
+        'it s a post',
+        'aad1b4cb8e53bf7c4eeeac9b55d7b93f'
+      );
       console.log('post', post);
+      const like = await addPostLike(
+        'chaimae',
+        '01f658ffe003d88297eb11d99cb6f908'
+      );
+      console.log('like added to the post with id:', like);*/
+      const postsBycategory = await getPostsByCategory(
+        'aad1b4cb8e53bf7c4eeeac9b55d7b93f',
+        0
+      );
+      console.log('postsBycategory :', postsBycategory);
     }
     fetchData();
   }, []);
