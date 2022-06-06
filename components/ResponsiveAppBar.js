@@ -63,30 +63,26 @@ const ResponsiveAppBar = (props) => {
     { name: 'Our Aims', path: '/aims' },
   ];
 
-  const src =
-    'https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg';
-
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
-            variant="h6"
+            item
             noWrap
             component="a"
             href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
+              fontFamily: 'Italianno, cursive',
+              fontSize: '34px',
+              fontWeight: 'bold',
+              color: '#fff',
             }}
           >
-            LOGO
+            {' '}
+            The student forum
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -184,39 +180,38 @@ const ResponsiveAppBar = (props) => {
               ))}
           </Box>
           <Box>
-            {' '}
-            <Button
-              onClick={() => signIn('google')}
-              variant="contained"
-              size="small"
-              sx={{
-                color: '#1A76D2',
-
-                backgroundColor: 'white',
-                '&:hover': { backgroundColor: '#fff' },
-              }}
-            >
-              <Box
-                className={classes.button}
+            {status == 'unauthenticated' && (
+              <Button
+                onClick={() => signIn('google')}
+                variant="contained"
+                size="small"
                 sx={{
-                  display: { xs: 'none', md: 'flex' },
-                  justifyContent: 'center',
-                  borderRadius: '2px',
-                  fontSize: '10px',
+                  color: '#1A76D2',
+                  backgroundColor: 'white',
+                  '&:hover': { backgroundColor: '#fff' },
                 }}
-                width={40}
-                height={40}
               >
-                <Image
-                  loader={() => src}
-                  src={src}
-                  alt="google"
-                  width={15}
-                  height={15}
-                />
-              </Box>
-              <Box fontSize={12}>sign in with google</Box>
-            </Button>
+                <Box
+                  className={classes.button}
+                  sx={{
+                    display: { xs: 'none', md: 'flex' },
+                    justifyContent: 'center',
+                    borderRadius: '2px',
+                    fontSize: '10px',
+                  }}
+                  width={40}
+                  height={40}
+                >
+                  <Image
+                    src="/GoogleLogo.svg"
+                    alt="google"
+                    width={15}
+                    height={15}
+                  />
+                </Box>
+                <Box fontSize={12}>sign in with google</Box>
+              </Button>
+            )}
           </Box>
           {status == 'authenticated' && (
             <Box sx={{ flexGrow: 0 }}>

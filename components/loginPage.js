@@ -4,11 +4,8 @@ import Grid from '@mui/material/Grid';
 import { red } from '@mui/material/colors';
 import { Button, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import LoginComponent from './loginComponent';
 
-<style>
-  @import
-  url('https://fonts.googleapis.com/css2?family=Londrina+Solid&family=M+PLUS+Code+Latin:wght@600&family=Nanum+Gothic&family=Raleway:wght@300&display=swap');
-</style>;
 export default function LoginPage() {
   const classes = useStyles;
 
@@ -88,8 +85,12 @@ export default function LoginPage() {
           src="/Untitled design.svg"
         />
       </Box>
+      <Box sx={{ margin: '24px 0px' }}>
+        <LoginComponent small={true} />
+      </Box>
       <Grid
-        marginTop="20px"
+        marginTop="24px"
+        marginBottom="24px"
         item
         container
         sx={{
