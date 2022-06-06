@@ -5,10 +5,6 @@ import { red } from '@mui/material/colors';
 import { Button, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-<style>
-  @import
-  url('https://fonts.googleapis.com/css2?family=Londrina+Solid&family=M+PLUS+Code+Latin:wght@600&family=Nanum+Gothic&family=Raleway:wght@300&display=swap');
-</style>;
 export default function LoginPage() {
   const classes = useStyles;
 

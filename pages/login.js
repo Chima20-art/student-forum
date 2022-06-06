@@ -6,23 +6,65 @@ import SmsIcon from '@mui/icons-material/Sms';
 import { Button } from '@mui/material';
 import Image from 'next/image';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
+import PageContain from '../components/react-scroller';
+import React, { useState } from 'react';
+import Link from 'next/link';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export default function Login() {
+  const [currentPageNumber, setCurrentPageNumber] = useState(0);
   return (
-    <Box sx={{ display: 'flex', height: '100vh', backgroundColor: 'red' }}>
+    <Grid
+      container
+      direction="column"
+      sx={{
+        maxWidth: { md: '85%', xs: '98%' },
+        height: '100vh',
+        margin: 'auto',
+        justifyContent: 'center',
+      }}
+    >
       <Paper
+        elevation={6}
         sx={{
-          minWidth: { md: '85%', xs: '98%' },
-          minHeight: { md: '80vh' },
-          margin: 'auto',
+          maxHeight: { md: '80vh' },
+          margin: ' 0px',
           display: 'flex',
           flexDirection: 'row',
           justifySelf: 'center',
         }}
       >
         <Grid container>
-          <Grid item md={6} xs={6} sx={{ backgroundColor: 'green' }}></Grid>
+          <Grid
+            container
+            item
+            md={6}
+            xs={6}
+            sx={{ backgroundColor: '#287DD5', justifyContent: 'center' }}
+          >
+            <Grid item sx={{}}>
+              <Image
+                src="/students1.svg"
+                alt="purple"
+                height="374px"
+                width="375px"
+              />
+            </Grid>
+            <Typography
+              item
+              sx={{
+                textAlign: 'center',
+                display: 'flex',
+                color: '#fff',
+                fontWeight: '700',
+              }}
+            >
+              {' '}
+              We work to connect, inspire and empower students globally through
+              solidarity, democracy, representation and the practice of radical
+              change. {''}
+            </Typography>
+          </Grid>
           <Grid
             container
             direction="column"
@@ -46,7 +88,7 @@ export default function Login() {
               }}
             >
               {' '}
-              The student club
+              The student forum
             </Typography>
 
             <Typography
@@ -55,7 +97,7 @@ export default function Login() {
                 fontWeight: 700,
                 fontSize: '28px',
                 marginBottom: '15px',
-                color: '#666664',
+                color: '#874ED1',
               }}
             >
               {' '}
@@ -167,6 +209,6 @@ export default function Login() {
           </Grid>
         </Grid>
       </Paper>
-    </Box>
+    </Grid>
   );
 }
