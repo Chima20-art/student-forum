@@ -63,9 +63,6 @@ const ResponsiveAppBar = (props) => {
     { name: 'Our Aims', path: '/aims' },
   ];
 
-  const src =
-    'https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg';
-
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -207,8 +204,7 @@ const ResponsiveAppBar = (props) => {
                   height={40}
                 >
                   <Image
-                    loader={() => src}
-                    src={src}
+                    src="/GoogleLogo.svg"
                     alt="google"
                     width={15}
                     height={15}
