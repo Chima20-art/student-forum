@@ -17,7 +17,6 @@ export default function Discussions() {
       elevation={3}
       container
       sx={{
-        width: { xs: '95%', md: '85%' },
         margin: '20px auto ',
         padding: '30px',
         justifyContent: 'center',

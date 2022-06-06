@@ -184,39 +184,39 @@ const ResponsiveAppBar = (props) => {
               ))}
           </Box>
           <Box>
-            {' '}
-            <Button
-              onClick={() => signIn('google')}
-              variant="contained"
-              size="small"
-              sx={{
-                color: '#1A76D2',
-
-                backgroundColor: 'white',
-                '&:hover': { backgroundColor: '#fff' },
-              }}
-            >
-              <Box
-                className={classes.button}
+            {status == 'unauthenticated' && (
+              <Button
+                onClick={() => signIn('google')}
+                variant="contained"
+                size="small"
                 sx={{
-                  display: { xs: 'none', md: 'flex' },
-                  justifyContent: 'center',
-                  borderRadius: '2px',
-                  fontSize: '10px',
+                  color: '#1A76D2',
+                  backgroundColor: 'white',
+                  '&:hover': { backgroundColor: '#fff' },
                 }}
-                width={40}
-                height={40}
               >
-                <Image
-                  loader={() => src}
-                  src={src}
-                  alt="google"
-                  width={15}
-                  height={15}
-                />
-              </Box>
-              <Box fontSize={12}>sign in with google</Box>
-            </Button>
+                <Box
+                  className={classes.button}
+                  sx={{
+                    display: { xs: 'none', md: 'flex' },
+                    justifyContent: 'center',
+                    borderRadius: '2px',
+                    fontSize: '10px',
+                  }}
+                  width={40}
+                  height={40}
+                >
+                  <Image
+                    loader={() => src}
+                    src={src}
+                    alt="google"
+                    width={15}
+                    height={15}
+                  />
+                </Box>
+                <Box fontSize={12}>sign in with google</Box>
+              </Button>
+            )}
           </Box>
           {status == 'authenticated' && (
             <Box sx={{ flexGrow: 0 }}>

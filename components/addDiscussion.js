@@ -12,6 +12,7 @@ export default function AddDiscussion() {
         padding: '30px',
         justifyContent: 'center',
         alignItems: 'center',
+        margin: 'auto',
       }}
     >
       <Typography
