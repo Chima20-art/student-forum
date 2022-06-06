@@ -29,68 +29,106 @@ export default function Login() {
             item
             md={6}
             xs={6}
-            sx={{ backgroundColor: 'yellow' }}
-            justifyContent="space-around"
+            sx={{
+              padding: '30px',
+              justifyContent: 'center',
+            }}
             textAlign="center"
           >
-            <Typography item> The student club</Typography>
+            <Typography
+              item
+              sx={{
+                fontFamily: 'Italianno, cursive',
+                fontSize: '34px',
+                fontWeight: 'bold',
+                color: '#666664',
+                marginBottom: '50px',
+              }}
+            >
+              {' '}
+              The student club
+            </Typography>
 
-            <Typography item sx={{ fontWeight: 700, fontSize: '28px' }}>
+            <Typography
+              item
+              sx={{
+                fontWeight: 700,
+                fontSize: '28px',
+                marginBottom: '15px',
+                color: '#666664',
+              }}
+            >
               {' '}
               Join now in 30 seconds
             </Typography>
-            <Grid item container>
-              <Grid
-                md={6}
-                item
-                container
-                direction="column"
-                sx={{ backgroundColor: 'red' }}
-              >
+            <Typography
+              sx={{
+                maxWidth: '455px',
+                color: '#666664',
+                margin: '0px auto ',
+                justifyContent: 'center',
+                marginBottom: '30px',
+              }}
+            >
+              {' '}
+              We work to connect, inspire and empower students globally through:
+              solidarity, democracy, representation and the practice of radical
+              change.
+            </Typography>
+            <Grid item container sx={{ marginBottom: '40px' }}>
+              <Grid md={6} item container direction="column">
                 <Grid
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    backgroundColor: '#F0F9FC',
-                    width: '80px',
-                    height: '80px',
-                    borderRadius: '40px',
                     margin: 'auto',
                   }}
                 >
-                  <SmsIcon color="primary" />
+                  <SmsIcon
+                    sx={{ width: '30px', height: '36px', color: '#287DD5' }}
+                  />
                 </Grid>
-                <Typography> 240,000+</Typography>
-                <Typography>posts on a month</Typography>
+                <Typography
+                  sx={{
+                    fontSize: '26px',
+                    fontWeight: '700',
+                  }}
+                >
+                  {' '}
+                  240,000+
+                </Typography>
+                <Typography sx={{ color: '#666664' }}>
+                  posts on a month
+                </Typography>
               </Grid>
-              <Grid
-                md={6}
-                item
-                container
-                direction="column"
-                sx={{ backgroundColor: 'blue' }}
-              >
+              <Grid md={6} item container direction="column" sx={{}}>
                 <Grid
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    backgroundColor: '#F0F9FC',
-                    width: '80px',
-                    height: '80px',
-                    borderRadius: '40px',
+
                     margin: 'auto',
                   }}
                 >
                   <PeopleAltIcon
-                    color="primary"
-                    sx={{ width: '26px', height: '26px' }}
+                    color="secondary"
+                    sx={{ width: '46px', height: '36px', color: '#287DD5' }}
                   />
                 </Grid>
 
-                <Typography>10 million</Typography>
-                <Typography>student online</Typography>
+                <Typography
+                  sx={{
+                    fontSize: '26px',
+                    fontWeight: '700',
+                  }}
+                >
+                  10 million
+                </Typography>
+                <Typography sx={{ color: '#505050', fontSize: '15px' }}>
+                  student online
+                </Typography>
               </Grid>
             </Grid>
             <Grid container item justifyContent="center">
@@ -99,8 +137,9 @@ export default function Login() {
                 variant="contained"
                 size="small"
                 sx={{
-                  width: '35%',
-                  color: '#1A76D2',
+                  width: '40%',
+                  color: '#666664',
+                  marginTop: '15px',
                   backgroundColor: 'white',
                   '&:hover': { backgroundColor: '#fff' },
                 }}
