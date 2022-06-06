@@ -20,6 +20,7 @@ import {
   getPost,
   getPostsByCategory,
 } from '../utils/backendAPI';
+import LoginComponent from '../components/loginComponent';
 
 export default function Home() {
   const { data: session, status } = useSession();
