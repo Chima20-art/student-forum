@@ -17,14 +17,13 @@ export default function LoginComponent({ small = false }) {
         alignItems: 'center',
         justifyContent: 'center',
         justifySelf: 'center',
-        marginTop: '30px',
       }}
     >
       <Paper
         elevation={10}
         sx={{
-          height: { md: '88vh' },
-          width: { md: '95vw', xs: '98%' },
+          height: { md: '80vh' },
+          width: { md: '85vw', xs: '98%' },
           display: 'flex',
           margin: '0px',
         }}

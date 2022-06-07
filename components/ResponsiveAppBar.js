@@ -64,7 +64,10 @@ const ResponsiveAppBar = (props) => {
   ];
 
   return (
-    <AppBar position="static">
+    <AppBar
+      position="fixed"
+      sx={{ backgroundColor: 'white', color: '#666664' }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -78,7 +81,7 @@ const ResponsiveAppBar = (props) => {
               fontFamily: 'Italianno, cursive',
               fontSize: '34px',
               fontWeight: 'bold',
-              color: '#fff',
+              color: '#AD236D',
             }}
           >
             {' '}
@@ -148,7 +151,7 @@ const ResponsiveAppBar = (props) => {
                   <Button
                     key={page.name}
                     onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: 'white', display: 'block' }}
+                    sx={{ my: 2, color: '#AD236D', display: 'block' }}
                   >
                     {page.name}
                   </Button>
@@ -171,7 +174,7 @@ const ResponsiveAppBar = (props) => {
                     sx={{
                       my: 2,
                       display: 'block',
-                      color: 'white',
+                      color: '#AD236D',
                     }}
                   >
                     {loginPage.name}
@@ -209,7 +212,9 @@ const ResponsiveAppBar = (props) => {
                     height={15}
                   />
                 </Box>
-                <Box fontSize={12}>sign in with google</Box>
+                <Typography fontSize={12} sx={{ color: '#AD236D' }}>
+                  sign in with google
+                </Typography>
               </Button>
             )}
           </Box>

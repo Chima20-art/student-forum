@@ -15,23 +15,25 @@ import { makeStyles } from '@mui/styles';
 export default function WelcomeComponent({ small = false }) {
   const classes = useStyles();
   return (
-    <Box
+    <Grid
+      container
       sx={{
+        marginTop: '20px',
         display: 'flex',
-        flexDirection: { xs: 'column', md: 'row' },
+        backgroundColor: '#ECC891',
+        flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
-        justifySelf: 'center',
-        marginTop: '30px',
+        justifySelf: 'flex-end',
+        height: '100vh',
       }}
     >
       <Paper
+        item
         elevation={6}
         sx={{
-          height: { md: '90vh' },
           width: { md: '95vw', xs: '98%' },
           display: 'flex',
-          margin: '0px',
+          margin: 'auto',
         }}
       >
         <Grid container>
@@ -107,15 +109,15 @@ export default function WelcomeComponent({ small = false }) {
                 sx={{
                   padding: '1em 1.3em',
                   lineHeight: '1.7em!important',
-                  backgroundColor: '#C077F7',
+                  backgroundColor: '#AD236D',
                   color: '#ffffff!important',
                   borderWidth: '12px!important',
-                  borderColor: '#C077F7',
+                  borderColor: '#AD236D',
                   borderRadius: '50px',
                   letterSpacing: '2px',
                   fontSize: '14px',
                   fontWeight: '900!important',
-                  '&:hover': { backgroundColor: '#C077F7' },
+                  '&:hover': { backgroundColor: '#AD236D' },
                 }}
               >
                 Get to know us more
@@ -150,7 +152,7 @@ export default function WelcomeComponent({ small = false }) {
           </Grid>
         </Grid>
       </Paper>
-    </Box>
+    </Grid>
   );
 }
 const useStyles = makeStyles((theme) => ({
