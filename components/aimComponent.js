@@ -18,7 +18,7 @@ export default function AimComponent(props) {
         item
         sx={{
           textAlign: 'flex-start',
-          color: 'red',
+          color: '#AD236D',
         }}
       >
         <CheckCircleIcon />

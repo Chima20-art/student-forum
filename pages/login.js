@@ -10,8 +10,7 @@ export default function Login() {
       direction="column"
       sx={{
         height: '100vh',
-        margin: 'auto',
-        justifyContent: 'center',
+        margin: '0px',
       }}
     >
       {' '}

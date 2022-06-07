@@ -20,7 +20,7 @@ import Link from 'next/link';
 import { styled } from '@mui/material/styles';
 
 const ResponsiveAppBar = (props) => {
-  const { status } = props;
+  const { status, setCurrentPage } = props;
   const classes = useStyles();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -60,11 +60,14 @@ const ResponsiveAppBar = (props) => {
   const loginPages = [
     { name: 'About', path: '/' },
     { name: 'Forums', path: '/forums' },
-    { name: 'Our Aims', path: '/aims' },
+    { name: 'Our Aims', path: '/#Values' },
   ];
 
   return (
-    <AppBar position="static">
+    <AppBar
+      position="fixed"
+      sx={{ backgroundColor: 'white', color: '#666664' }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -78,7 +81,7 @@ const ResponsiveAppBar = (props) => {
               fontFamily: 'Italianno, cursive',
               fontSize: '34px',
               fontWeight: 'bold',
-              color: '#fff',
+              color: '#AD236D',
             }}
           >
             {' '}
@@ -148,7 +151,7 @@ const ResponsiveAppBar = (props) => {
                   <Button
                     key={page.name}
                     onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: 'white', display: 'block' }}
+                    sx={{ my: 2, color: '#AD236D', display: 'block' }}
                   >
                     {page.name}
                   </Button>
@@ -162,57 +165,60 @@ const ResponsiveAppBar = (props) => {
               justifyContent: { xs: 'none', md: 'flex-end' },
             }}
           >
-            {status == 'unauthenticated' &&
-              loginPages.map((loginPage) => (
-                <Link href={loginPage.path} key={loginPage.name}>
-                  <Button
-                    key={loginPage.name}
-                    onClick={handleCloseNavMenu}
-                    sx={{
-                      my: 2,
-                      display: 'block',
-                      color: 'white',
-                    }}
-                  >
-                    {loginPage.name}
-                  </Button>
-                </Link>
-              ))}
-          </Box>
-          <Box>
             {status == 'unauthenticated' && (
-              <Button
-                onClick={() => signIn('google')}
-                variant="contained"
-                size="small"
-                sx={{
-                  color: '#1A76D2',
-                  backgroundColor: 'white',
-                  '&:hover': { backgroundColor: '#fff' },
-                }}
-              >
-                <Box
-                  className={classes.button}
-                  sx={{
-                    display: { xs: 'none', md: 'flex' },
-                    justifyContent: 'center',
-                    borderRadius: '2px',
-                    fontSize: '10px',
+              <>
+                <Button
+                  onClick={() => {
+                    setCurrentPage(0);
                   }}
-                  width={40}
-                  height={40}
+                  sx={{
+                    my: 2,
+                    display: 'block',
+                    color: '#AD236D',
+                  }}
                 >
-                  <Image
-                    src="/GoogleLogo.svg"
-                    alt="google"
-                    width={15}
-                    height={15}
-                  />
-                </Box>
-                <Box fontSize={12}>sign in with google</Box>
-              </Button>
+                  About
+                </Button>
+                <Button
+                  onClick={() => {
+                    setCurrentPage(1);
+                  }}
+                  sx={{
+                    my: 2,
+                    display: 'block',
+                    color: '#AD236D',
+                  }}
+                >
+                  Values
+                </Button>
+                <Button
+                  onClick={() => {
+                    setCurrentPage(2);
+                  }}
+                  sx={{
+                    my: 2,
+                    display: 'block',
+                    color: '#AD236D',
+                  }}
+                >
+                  Missions
+                </Button>
+                <Button
+                  onClick={() => {
+                    setCurrentPage(3);
+                  }}
+                  sx={{
+                    my: 2,
+                    display: 'block',
+                    color: '#AD236D',
+                  }}
+                >
+                  Login
+                </Button>
+              </>
             )}
           </Box>
+
           {status == 'authenticated' && (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
