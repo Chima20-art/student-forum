@@ -66,9 +66,8 @@ export default function Home() {
   return (
     <Box>
       <ResponsiveAppBar status={status} />
-      <Container maxWidth="xl">
-        <LoginPage />
-      </Container>
+
+      <LoginPage />
     </Box>
   );
 }

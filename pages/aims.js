@@ -2,7 +2,7 @@ import { Box, Grid, Typography } from '@mui/material';
 import ResponsiveAppBar from '../components/ResponsiveAppBar';
 import Image from 'next/image';
 import { makeStyles } from '@mui/styles';
-import backgroundImage from '../public/students.svg';
+
 import { Paper } from '@mui/material';
 import AimComponent from '../components/aimComponent';
 
