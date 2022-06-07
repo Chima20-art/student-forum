@@ -8,12 +8,23 @@ import LoginComponent from './loginComponent';
 import WelcomeComponent from './welcomeComponent';
 import ReactPageScroller from 'react-page-scroller';
 
-export default function LoginPage() {
-  const classes = useStyles();
+import Aims from './Values';
+import Missions from './Missions';
+import { useState } from 'react';
+
+export default function LoginPage({ currentPage, setCurrentPage }) {
+  const handlePageChange = (number) => {
+    setCurrentPage(number);
+  };
 
   return (
-    <ReactPageScroller>
+    <ReactPageScroller
+      customPageNumber={currentPage}
+      pageOnChange={handlePageChange}
+    >
       <WelcomeComponent />
+      <Aims />
+      <Missions />
       <LoginComponent small={true} />
     </ReactPageScroller>
   );

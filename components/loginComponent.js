@@ -7,25 +7,28 @@ import { Button } from '@mui/material';
 import Image from 'next/image';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import React, { useState } from 'react';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 export default function LoginComponent({ small = false }) {
   return (
-    <Box
+    <Grid
       sx={{
         display: 'flex',
-        flexDirection: { xs: 'column', md: 'row' },
+        backgroundColor: '#26213D',
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        justifySelf: 'center',
+
+        height: '100vh',
       }}
     >
       <Paper
         elevation={10}
         sx={{
-          height: { md: '80vh' },
-          width: { md: '85vw', xs: '98%' },
+          width: { md: '95vw', xs: '98%' },
           display: 'flex',
           margin: '0px',
+          marginTop: '20px',
         }}
       >
         <Grid container>
@@ -193,6 +196,6 @@ export default function LoginComponent({ small = false }) {
           </Grid>
         </Grid>
       </Paper>
-    </Box>
+    </Grid>
   );
 }

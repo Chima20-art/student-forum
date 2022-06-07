@@ -20,10 +20,10 @@ export default function WelcomeComponent({ small = false }) {
       sx={{
         marginTop: '20px',
         display: 'flex',
-        backgroundColor: '#ECC891',
+        backgroundColor: '#F1E9FD',
         flexDirection: 'column',
         alignItems: 'center',
-        justifySelf: 'flex-end',
+
         height: '100vh',
       }}
     >

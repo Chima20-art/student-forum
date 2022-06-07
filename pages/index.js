@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import { makeStyles } from '@mui/styles';
-
+import { useRouter } from 'next/router';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import LoginPage from '../components/loginPage';
 import ResponsiveAppBar from '../components/ResponsiveAppBar';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -24,6 +24,8 @@ import LoginComponent from '../components/loginComponent';
 
 export default function Home() {
   const { data: session, status } = useSession();
+  const [currentPage, setCurrentPage] = useState(0);
+  const router = useRouter();
 
   //createPost();
 
@@ -63,11 +65,15 @@ export default function Home() {
     );
   }
 
+  if (status == 'authenticated') {
+    router.push('/forums');
+  }
+
   return (
     <Box>
-      <ResponsiveAppBar status={status} />
+      <ResponsiveAppBar status={status} setCurrentPage={setCurrentPage} />
 
-      <LoginPage />
+      <LoginPage currentPage={currentPage} setCurrentPage={setCurrentPage} />
     </Box>
   );
 }

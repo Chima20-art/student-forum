@@ -32,7 +32,7 @@ export default function Forums() {
       <Grid
         sx={{
           maxWidth: { md: '85%', xs: '98%' },
-          margin: '20px auto',
+          margin: '69px auto 20px 69px',
         }}
       >
         <Typography
