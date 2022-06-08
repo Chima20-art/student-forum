@@ -234,3 +234,26 @@ export async function getAllCategories() {
     return null;
   }
 }
+
+export async function getUsersByIds(ids) {
+  if (!Array.isArray(ids)) ids = [ids];
+  try {
+    let response = await fetch(
+      'https://us-central1-studentforum-f11ce.cloudfunctions.net/getUsersByIds',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          ids: ids,
+        }),
+      }
+    );
+    let responseText = await response.text();
+    console.log('responseText ', responseText);
+    let json = await JSON.parse(responseText);
+    return json;
+  } catch (error) {
+    console.log('there was an error calling getPost');
+    console.log(error);
+    return null;
+  }
+}

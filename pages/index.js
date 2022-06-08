@@ -10,6 +10,7 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import LoginComponent from '../components/loginComponent';
+import { getUsersByIds } from '../utils/backendAPI';
 
 export default function Home() {
   const { data: session, status } = useSession();
