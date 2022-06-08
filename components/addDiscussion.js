@@ -39,7 +39,7 @@ export default function AddDiscussion() {
         How about starting a new conversation by creating a new post!
       </Typography>
       <Typography align="center">
-        <Link href="/login" key="login page">
+        <Link href="/createDiscussion" key="login page">
           <Button
             item
             sx={{

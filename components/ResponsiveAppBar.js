@@ -41,20 +41,8 @@ const ResponsiveAppBar = (props) => {
   };
   const pages = [
     {
-      name: 'Home',
+      name: 'Forums',
       path: '/',
-    },
-    {
-      name: 'News',
-      path: '/news',
-    },
-    {
-      name: 'Posts',
-      path: '/posts',
-    },
-    {
-      name: 'Posts',
-      path: '/posts',
     },
   ];
   const loginPages = [

@@ -8,9 +8,16 @@ import Discussions from '../components/discussions';
 import AddDiscussion from '../components/addDiscussion';
 import Link from 'next/link';
 import { TextField } from '@mui/material';
+import { useRouter } from 'next/router';
 
 export default function Forums() {
   const { data: session, status } = useSession();
+  const router = useRouter();
+
+  if (status == 'unauthenticated') {
+    router.push('/');
+  }
+
   const popularTopics = [
     { icon: 'AccountBalanceIcon', name: 'Movies' },
     { icon: 'AccountBalanceIcon', name: 'University' },

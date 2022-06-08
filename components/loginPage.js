@@ -7,6 +7,7 @@ import { makeStyles } from '@mui/styles';
 import LoginComponent from './loginComponent';
 import WelcomeComponent from './welcomeComponent';
 import ReactPageScroller from 'react-page-scroller';
+import { useRouter } from 'next/router';
 
 import Aims from './Values';
 import Missions from './Missions';
