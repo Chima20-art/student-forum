@@ -12,6 +12,7 @@ export default function AddDiscussion() {
         padding: '30px',
         justifyContent: 'center',
         alignItems: 'center',
+        margin: 'auto',
       }}
     >
       <Typography
@@ -38,7 +39,7 @@ export default function AddDiscussion() {
         How about starting a new conversation by creating a new post!
       </Typography>
       <Typography align="center">
-        <Link href="/createDiscussion" key="createDiscussion">
+        <Link href="/createDiscussion" key="login page">
           <Button
             item
             sx={{

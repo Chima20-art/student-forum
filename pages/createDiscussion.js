@@ -5,16 +5,18 @@ import SelectVariants from '../components/SelectVariants';
 import { TextareaAutosize } from '@mui/base';
 import { useState } from 'react';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 export default function CreateDiscussion() {
   const [text, setText] = useState('');
+  const { data: session, status } = useSession();
 
   const handleChange = (event) => {
     setText(event.target.value);
   };
   return (
     <Grid>
-      <ResponsiveAppBar />
+      <ResponsiveAppBar status={status} />
       <Grid
         sx={{
           maxWidth: { md: '85%', xs: '98%' },
