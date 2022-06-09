@@ -23,7 +23,7 @@ export default function AddDiscussion() {
           margin: '10px 0px',
         }}
       >
-        Didn't find what you are looking for ?
+        Did not find what you are looking for ?
       </Typography>
       <Typography
         item
