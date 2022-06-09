@@ -20,7 +20,7 @@ import Link from 'next/link';
 import { styled } from '@mui/material/styles';
 
 const ResponsiveAppBar = (props) => {
-  const { status } = props;
+  const { status, setCurrentPage } = props;
   const classes = useStyles();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -41,52 +41,39 @@ const ResponsiveAppBar = (props) => {
   };
   const pages = [
     {
-      name: 'Home',
+      name: 'Forums',
       path: '/',
-    },
-    {
-      name: 'News',
-      path: '/news',
-    },
-    {
-      name: 'Posts',
-      path: '/posts',
-    },
-    {
-      name: 'Posts',
-      path: '/posts',
     },
   ];
   const loginPages = [
     { name: 'About', path: '/' },
     { name: 'Forums', path: '/forums' },
-    { name: 'Our Aims', path: '/aims' },
+    { name: 'Our Aims', path: '/#Values' },
   ];
 
-  const src =
-    'https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg';
-
   return (
-    <AppBar position="static">
+    <AppBar
+      position="fixed"
+      sx={{ backgroundColor: 'white', color: '#666664' }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
-            variant="h6"
+            item
             noWrap
             component="a"
             href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
+              fontFamily: 'Italianno, cursive',
+              fontSize: '34px',
+              fontWeight: 'bold',
+              color: '#AD236D',
             }}
           >
-            LOGO
+            {' '}
+            The student forum
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -152,7 +139,7 @@ const ResponsiveAppBar = (props) => {
                   <Button
                     key={page.name}
                     onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: 'white', display: 'block' }}
+                    sx={{ my: 2, color: '#AD236D', display: 'block' }}
                   >
                     {page.name}
                   </Button>
@@ -166,58 +153,60 @@ const ResponsiveAppBar = (props) => {
               justifyContent: { xs: 'none', md: 'flex-end' },
             }}
           >
-            {status == 'unauthenticated' &&
-              loginPages.map((loginPage) => (
-                <Link href={loginPage.path} key={loginPage.name}>
-                  <Button
-                    key={loginPage.name}
-                    onClick={handleCloseNavMenu}
-                    sx={{
-                      my: 2,
-                      display: 'block',
-                      color: 'white',
-                    }}
-                  >
-                    {loginPage.name}
-                  </Button>
-                </Link>
-              ))}
+            {status == 'unauthenticated' && (
+              <>
+                <Button
+                  onClick={() => {
+                    setCurrentPage(0);
+                  }}
+                  sx={{
+                    my: 2,
+                    display: 'block',
+                    color: '#AD236D',
+                  }}
+                >
+                  About
+                </Button>
+                <Button
+                  onClick={() => {
+                    setCurrentPage(1);
+                  }}
+                  sx={{
+                    my: 2,
+                    display: 'block',
+                    color: '#AD236D',
+                  }}
+                >
+                  Values
+                </Button>
+                <Button
+                  onClick={() => {
+                    setCurrentPage(2);
+                  }}
+                  sx={{
+                    my: 2,
+                    display: 'block',
+                    color: '#AD236D',
+                  }}
+                >
+                  Missions
+                </Button>
+                <Button
+                  onClick={() => {
+                    setCurrentPage(3);
+                  }}
+                  sx={{
+                    my: 2,
+                    display: 'block',
+                    color: '#AD236D',
+                  }}
+                >
+                  Login
+                </Button>
+              </>
+            )}
           </Box>
-          <Box>
-            {' '}
-            <Button
-              onClick={() => signIn('google')}
-              variant="contained"
-              size="small"
-              sx={{
-                color: '#1A76D2',
 
-                backgroundColor: 'white',
-                '&:hover': { backgroundColor: '#fff' },
-              }}
-            >
-              <Box
-                className={classes.button}
-                sx={{
-                  display: { xs: 'none', md: 'flex' },
-                  justifyContent: 'center',
-                  borderRadius: '2px',
-                  fontSize: '10px',
-                }}
-                width={40}
-                height={40}
-              >
-                <Image
-                  loader={() => src}
-                  src={src}
-                  alt="google"
-                  width={15}
-                  height={15}
-                />
-              </Box>
-              <Box fontSize={12}>sign in with google</Box>
-            </Button>
-          </Box>
           {status == 'authenticated' && (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">

@@ -17,6 +17,7 @@
     "@mui/material": "^5.8.1",
     "@mui/styles": "^5.8.0",
     "@next-auth/firebase-adapter": "^0.1.2-pr.183-76202b42.8",
+    "@yunoek/react-page-scroller": "^2.2.1",
     "firebase": "^9.8.1",
     "next": "12.1.6",
     "next-auth": "^4.3.4",
