@@ -6,7 +6,8 @@ import { Button, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import LoginComponent from './loginComponent';
 import WelcomeComponent from './welcomeComponent';
-import ReactPageScroller from 'react-page-scroller';
+import ReactPageScroller from '@yunoek/react-page-scroller';
+import { useRouter } from 'next/router';
 
 import Aims from './Values';
 import Missions from './Missions';
@@ -21,6 +22,7 @@ export default function LoginPage({ currentPage, setCurrentPage }) {
     <ReactPageScroller
       customPageNumber={currentPage}
       pageOnChange={handlePageChange}
+      animationTimer={500}
     >
       <WelcomeComponent />
       <Aims />
