@@ -85,14 +85,13 @@ export default function WelcomeComponent({ small = false }) {
               {' '}
               We work to connect, inspire and empower students globally through:
               solidarity, democracy, representation and the practice of radical
-              change. We work to connect, inspire and empower students globally
-              through solidarity, democracy, representation and the practice of
-              radical change. We work to connect, inspire and empower students
-              globally through solidarity, democracy, representation and the
-              practice of radical change. We work to connect, inspire and
-              empower students globally through: solidarity, democracy,
-              representation and the practice of radical change. We work to
-              connect, inspire and empower students
+              change. The student forum is a platform that works as a
+              coordinator to help worldwide students share their interests,
+              create series of community forums, expand skills, facilitate
+              active solidarity... it has forums covering almost every area you
+              could think about. Whether you love sports, the theater, music,
+              entrepreneurship, community, debating, or even partial to casual
+              wine tasting, there truly is something for everyone.
             </Typography>
 
             <Typography
@@ -118,7 +117,7 @@ export default function WelcomeComponent({ small = false }) {
                   '&:hover': { backgroundColor: '#AD236D' },
                 }}
               >
-                Get to know us more
+                Check out our forums
               </Button>
             </Typography>
           </Grid>
