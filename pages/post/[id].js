@@ -1,18 +1,12 @@
 import React, { useState } from 'react';
 import { Grid } from '@mui/material';
-import LoginComponent from '../components/loginComponent';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
-import ResponsiveAppBar from '../components/ResponsiveAppBar';
+import ResponsiveAppBar from '../../components/ResponsiveAppBar';
 
-export default function Login() {
-  const [currentPageNumber, setCurrentPageNumber] = useState(0);
-  const { data: session, status } = useSession();
+export default function Post({}) {
   const router = useRouter();
 
-  if (status == 'authenticated') {
-    router.push('/forums');
-  }
   return (
     <Grid
       container
@@ -23,7 +17,6 @@ export default function Login() {
       }}
     >
       <ResponsiveAppBar setCurrentPage={null} />
-      <LoginComponent />
     </Grid>
   );
 }

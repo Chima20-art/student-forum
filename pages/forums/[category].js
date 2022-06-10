@@ -12,6 +12,7 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { makeStyles } from '@mui/styles';
 import AddDiscussion from '../../components/addDiscussion';
+import Loading from '../../components/loading';
 
 const CategoryPage = (props) => {
   const classes = useStyles;
@@ -19,9 +20,17 @@ const CategoryPage = (props) => {
   const { category } = router.query;
   const { data: session, status } = useSession();
 
+  if (status == 'loading') {
+    return <Loading />;
+  }
+
+  if (status == 'unauthenticated') {
+    router.push('/login');
+  }
+
   return (
     <Grid>
-      <ResponsiveAppBar session={status} />
+      <ResponsiveAppBar setCurrentPage={null} />
       <Grid
         container
         sx={{

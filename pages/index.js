@@ -11,6 +11,8 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import LoginComponent from '../components/loginComponent';
 import { getUsersByIds } from '../utils/backendAPI';
+import Loading from '../components/loading';
+import { addPostLike } from '../utils/backendAPI';
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -27,11 +29,7 @@ export default function Home() {
   }, []);
 
   if (status == 'loading') {
-    return (
-      <div>
-        <h1>loading..</h1>
-      </div>
-    );
+    return <Loading />;
   }
 
   if (status == 'authenticated') {
@@ -40,7 +38,7 @@ export default function Home() {
 
   return (
     <Box>
-      <ResponsiveAppBar status={status} setCurrentPage={setCurrentPage} />
+      <ResponsiveAppBar setCurrentPage={setCurrentPage} />
 
       <LoginPage currentPage={currentPage} setCurrentPage={setCurrentPage} />
     </Box>

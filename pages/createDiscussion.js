@@ -6,17 +6,28 @@ import { TextareaAutosize } from '@mui/base';
 import { useState } from 'react';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useSession, signIn, signOut } from 'next-auth/react';
+import Loading from '../components/loading';
+import { useRouter } from 'next/router';
 
 export default function CreateDiscussion() {
   const [text, setText] = useState('');
+  const router = useRouter();
+
   const { data: session, status } = useSession();
+
+  if (status == 'loading') {
+    return <Loading />;
+  }
+  if (status == 'unauthenticated') {
+    router.push('/login');
+  }
 
   const handleChange = (event) => {
     setText(event.target.value);
   };
   return (
     <Grid>
-      <ResponsiveAppBar status={status} />
+      <ResponsiveAppBar setCurrentPage={null} />
       <Grid
         sx={{
           maxWidth: { md: '85%', xs: '98%' },

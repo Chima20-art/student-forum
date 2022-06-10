@@ -20,10 +20,17 @@ import Link from 'next/link';
 import { styled } from '@mui/material/styles';
 
 const ResponsiveAppBar = (props) => {
-  const { status, setCurrentPage } = props;
+  let { setCurrentPage } = props;
   const classes = useStyles();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const { data: session, status } = useSession();
+
+  const {
+    email: userEmail,
+    image: userImage,
+    name: userName,
+  } = session?.user ?? {};
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -59,7 +66,6 @@ const ResponsiveAppBar = (props) => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
-            item
             noWrap
             component="a"
             href="/"
@@ -153,11 +159,13 @@ const ResponsiveAppBar = (props) => {
               justifyContent: { xs: 'none', md: 'flex-end' },
             }}
           >
-            {status == 'unauthenticated' && (
+            {status == 'unauthenticated' && setCurrentPage && (
               <>
                 <Button
                   onClick={() => {
-                    setCurrentPage(0);
+                    if (setCurrentPage) {
+                      setCurrentPage(0);
+                    }
                   }}
                   sx={{
                     my: 2,
@@ -169,7 +177,9 @@ const ResponsiveAppBar = (props) => {
                 </Button>
                 <Button
                   onClick={() => {
-                    setCurrentPage(1);
+                    if (setCurrentPage) {
+                      setCurrentPage(1);
+                    }
                   }}
                   sx={{
                     my: 2,
@@ -181,7 +191,9 @@ const ResponsiveAppBar = (props) => {
                 </Button>
                 <Button
                   onClick={() => {
-                    setCurrentPage(2);
+                    if (setCurrentPage) {
+                      setCurrentPage(2);
+                    }
                   }}
                   sx={{
                     my: 2,
@@ -193,7 +205,9 @@ const ResponsiveAppBar = (props) => {
                 </Button>
                 <Button
                   onClick={() => {
-                    setCurrentPage(3);
+                    if (setCurrentPage) {
+                      setCurrentPage(3);
+                    }
                   }}
                   sx={{
                     my: 2,
@@ -209,11 +223,22 @@ const ResponsiveAppBar = (props) => {
 
           {status == 'authenticated' && (
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Typography sx={{ marginRight: '12px' }}>
+                      {userName}
+                    </Typography>
+                    <Avatar alt="Remy Sharp" src={userImage} />
+                  </IconButton>
+                </Tooltip>
+              </Box>
 
               <Menu
                 sx={{ mt: '45px' }}
@@ -234,7 +259,7 @@ const ResponsiveAppBar = (props) => {
                 <MenuItem key="profile" onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">Profile</Typography>
                 </MenuItem>
-                <MenuItem key="profile" onClick={handleCloseUserMenu}>
+                <MenuItem key="Logout" onClick={handleCloseUserMenu}>
                   <Typography textAlign="center" onClick={signOut}>
                     Logout
                   </Typography>
