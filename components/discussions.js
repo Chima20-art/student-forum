@@ -7,18 +7,27 @@ import Select from '@mui/material/Select';
 import React, { useState } from 'react';
 import Discussion from './discussion';
 import { useEffect } from 'react';
+import Loading from './loading';
 
 export default function Discussions({ posts }) {
   const [sorting, setSorting] = useState(1);
   const [sortedPosts, setSortedPosts] = useState(posts);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    switch (sorting) {
+  if (loading) {
+    return <Loading small />;
+  }
+
+  const handleChange = (event) => {
+    setSorting(event.target.value);
+    setLoading(true);
+    switch (event.target.value) {
       case 1:
         posts?.sort((a, b) => {
-          return a?.createdAt >= b?.createdAt ? 1 : -1;
+          return a?.createdAt <= b?.createdAt ? 1 : -1;
         });
         setSortedPosts(posts);
+        setLoading(false);
         break;
       case 2:
         posts?.sort((a, b) => {
@@ -26,27 +35,25 @@ export default function Discussions({ posts }) {
         });
 
         setSortedPosts(posts);
-
+        setLoading(false);
         break;
       case 3:
         posts?.sort((a, b) => {
-          return a?.likes?.length >= b?.likes?.length ? 1 : -1;
+          return a?.likes?.length <= b?.likes?.length ? 1 : -1;
         });
         setSortedPosts(posts);
+        setLoading(false);
         break;
       case 4:
         posts?.sort((a, b) => {
-          return a?.createdAt <= b?.createdAt ? 1 : -1;
+          return a?.createdAt >= b?.createdAt ? 1 : -1;
         });
         setSortedPosts(posts);
+        setLoading(false);
         break;
       default:
         break;
     }
-  }, [posts, sorting, sortedPosts]);
-
-  const handleChange = (event) => {
-    setSorting(event.target.value);
   };
   return (
     <Paper

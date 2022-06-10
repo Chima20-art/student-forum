@@ -3,7 +3,7 @@ import SyncLoader from 'react-spinners/SyncLoader';
 import { CSSProperties } from 'react';
 import { Typography } from '@mui/material';
 
-const Loading = () => {
+const Loading = ({ small }) => {
   const override = {
     display: 'block',
     margin: '0 auto',
@@ -13,8 +13,9 @@ const Loading = () => {
   return (
     <Container
       sx={{
-        minWidth: '100vw',
-        minHeight: '100vh',
+        minWidth: small ? '100%' : '100vw',
+        minHeight: small ? '250px' : '100vh',
+
         padding: '0px !important',
         margin: '0px !important',
         display: 'flex',

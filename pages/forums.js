@@ -144,9 +144,10 @@ export async function getServerSideProps(context) {
 
   if (allPosts) {
     allPosts = allPosts.sort((a, b) => {
-      return a?.createdAt >= b?.createdAt ? 1 : -1;
+      return a?.createdAt <= b?.createdAt ? 1 : -1;
     });
   }
+
   //console.log('allCategories ', allCategories);
   //console.log('allPosts ', allPosts);
 

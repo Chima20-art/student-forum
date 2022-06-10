@@ -50,7 +50,6 @@ export default function WelcomeComponent({ small = false }) {
             textAlign="center"
           >
             <Typography
-              item
               sx={{
                 fontFamily: 'Italianno, cursive',
                 fontSize: '34px',
@@ -64,7 +63,6 @@ export default function WelcomeComponent({ small = false }) {
             </Typography>
 
             <Typography
-              item
               sx={{
                 fontWeight: 700,
                 fontSize: '28px',
