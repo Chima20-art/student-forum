@@ -101,12 +101,11 @@ export async function addPostComment(postedBy, content, postId) {
     let response = await fetch(
       'https://us-central1-studentforum-f11ce.cloudfunctions.net/addPostComment',
       {
-        method: 'POST', // or 'PUT'
-
+        method: 'POST',
         body: JSON.stringify({
-          postedBy,
-          content,
-          postId,
+          postedBy: postedBy,
+          content: content,
+          postId: postId,
         }),
       }
     );

@@ -1,5 +1,15 @@
-import React, { useState } from 'react';
-import { Grid, Typography, Container, Paper, IconButton } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import {
+  Grid,
+  Typography,
+  Container,
+  Paper,
+  IconButton,
+  Divider,
+} from '@mui/material';
+import TextField from '@mui/material/TextField';
+import LoadingButton from '@mui/lab/LoadingButton';
+
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import ResponsiveAppBar from '../../components/ResponsiveAppBar';
@@ -7,6 +17,7 @@ import Link from 'next/link';
 import { getPost } from '../../utils/backendAPI';
 import Button from '@mui/material/Button';
 import MapsUgcIcon from '@mui/icons-material/MapsUgc';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -18,10 +29,16 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import timeSince from '../../utils/timeSince';
 import Image from 'next/image';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { Box } from '@mui/system';
+
+import { addPostComment, addPostLike } from '../../utils/backendAPI';
 
 export default function Post({ post }) {
   const router = useRouter();
   const { data: session, status } = useSession();
+  const [commentText, setCommentText] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [didLikePost, setDidLikePost] = useState(false);
 
   if (!post && typeof window != 'undefined') {
     router.push('/');
@@ -45,9 +62,47 @@ export default function Post({ post }) {
     commentUsers,
   } = post ?? {};
 
-  console.log('commentUsers', commentUsers);
-
   const likedPost = likes?.includes(userEmail);
+
+  const onPostComment = async () => {
+    setLoading(true);
+    if (commentText && commentText != '' && userEmail && commentText && id) {
+      console.log(
+        'postedBy ' + userEmail + ' content ' + commentText + ' postId ' + id
+      );
+      const comment = await addPostComment(userEmail, commentText, id);
+      //console.log('comment ', comment);
+      commentUsers.push({
+        email: userEmail,
+        image: userImage,
+        name: userName,
+      });
+      comments.unshift({
+        postedBy: userEmail,
+        content: commentText,
+        likes: [],
+        createdAt: Date.now(),
+      });
+      setCommentText('');
+    }
+    setLoading(false);
+  };
+
+  const likePost = async () => {
+    console.log('likePost');
+    if (userEmail && id) {
+      const likePost = await addPostComment(userEmail, id);
+      console.log('likePost ', likePost);
+      likes.push(userEmail);
+      setDidLikePost(true);
+    } else {
+      console.log('userEmail or id is null ');
+      console.log('userEmail ', userEmail);
+      console.log('id ', id);
+    }
+  };
+
+  const likeComment = async (commentId) => {};
 
   return (
     <Grid
@@ -213,16 +268,19 @@ export default function Post({ post }) {
                   alignItems: 'center',
                 }}
               >
-                <Image
-                  width="80px"
-                  height="80px"
-                  src={postedBy?.image}
-                  style={{
-                    borderRadius: 50,
-                    width: '80px',
-                    height: '80px',
-                  }}
-                />
+                {postedBy?.image && (
+                  <Image
+                    width="80px"
+                    height="80px"
+                    src={postedBy?.image}
+                    style={{
+                      borderRadius: 50,
+                      width: '80px',
+                      height: '80px',
+                    }}
+                  />
+                )}
+
                 <Link href={'/user/' + postedBy?.email}>
                   <a style={{}}>
                     <Typography sx={{ margin: '8px 0px' }}>
@@ -242,8 +300,6 @@ export default function Post({ post }) {
                 }}
               >
                 <Typography sx={{ fontSize: '1.6rem', color: 'gray' }}>
-                  {content}
-                  {content}
                   {content}
                 </Typography>
               </Grid>
@@ -270,12 +326,17 @@ export default function Post({ post }) {
                   //backgroundColor: 'orange',
                 }}
               >
-                {!likedPost && (
-                  <IconButton color="primary">
+                {!likedPost && !didLikePost && (
+                  <IconButton
+                    color="primary"
+                    onClick={() => {
+                      likePost();
+                    }}
+                  >
                     <FavoriteBorderIcon color="primary" fontSize="large" />
                   </IconButton>
                 )}
-                {likedPost && (
+                {(likedPost || didLikePost) && (
                   <IconButton color="primary">
                     <FavoriteIcon color="primary" fontSize="large" />
                   </IconButton>
@@ -315,15 +376,165 @@ export default function Post({ post }) {
                 <Typography variant="h5">Comments</Typography>
               </Grid>
               {comments?.map((comment) => {
+                let commentUser = commentUsers.filter(
+                  (item) => item.email == comment.postedBy
+                );
+
+                commentUser = commentUser?.length > 0 ? commentUser[0] : {};
+
                 return (
-                  <Grid item container xs={12}>
-                    <Grid item xs={1} sx={{ backgroundColor: 'red' }}>
-                      <p>asdasd</p>
+                  <>
+                    <Grid item container xs={12} sx={{ margin: '12px 0px' }}>
+                      <Grid
+                        item
+                        xs={1}
+                        sx={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          flexDirection: 'column',
+                        }}
+                      >
+                        {commentUser?.image && (
+                          <Image
+                            width="50px"
+                            height="50px"
+                            src={commentUser?.image}
+                            style={{
+                              borderRadius: 25,
+                              width: '50px',
+                              height: '50px',
+                            }}
+                          />
+                        )}
+
+                        <Link href={'/user/' + commentUser?.email}>
+                          <a style={{}}>
+                            <Typography sx={{ margin: '8px 0px' }}>
+                              {commentUser?.name}
+                            </Typography>
+                          </a>
+                        </Link>
+                      </Grid>
+                      <Grid item container xs={11}>
+                        <Grid item xs={12}>
+                          <Typography sx={{ padding: '8px' }}>
+                            {comment.content}
+                          </Typography>
+                        </Grid>
+                        <Grid
+                          item
+                          xs={12}
+                          sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                          }}
+                        >
+                          {!comment?.likes?.includes(userEmail) ? (
+                            <IconButton color="primary">
+                              <FavoriteBorderIcon
+                                color="primary"
+                                fontSize="small"
+                              />
+                            </IconButton>
+                          ) : (
+                            <IconButton color="primary">
+                              <FavoriteIcon color="primary" fontSize="small" />
+                            </IconButton>
+                          )}
+                          <Typography>{comment?.likes?.length}</Typography>
+                          <FiberManualRecordIcon
+                            sx={{
+                              fontSize: '8px',
+                              marginLeft: '6px',
+                              marginRight: '6px',
+                              marginTop: '4px',
+                              color: '#333',
+                              opacity: 0.6,
+                            }}
+                          />
+                          <AccessTimeIcon
+                            fontSize="small"
+                            sx={{ color: '#333', opacity: 0.6 }}
+                          />
+                          <Typography
+                            sx={{
+                              color: '#333',
+                              opacity: 0.6,
+                              marginLeft: '6px',
+                              marginRight: '6px',
+                            }}
+                          >
+                            about {timeSince(comment.createdAt)}
+                          </Typography>
+                        </Grid>
+                      </Grid>
                     </Grid>
-                    <Grid item xs={11}></Grid>
-                  </Grid>
+                    <Divider orientation="horizontal" sx={{ width: '100%' }} />
+                  </>
                 );
               })}
+            </Grid>
+            <Grid
+              container
+              item
+              xs={12}
+              sx={{
+                alignItems: 'center',
+                marginTop: '24px',
+                display: 'flex',
+                justifyContent: 'flex-end',
+                padding: '16px',
+                backgroundColor: '#fafafa',
+              }}
+            >
+              <Grid
+                item
+                container
+                xs={12}
+                sx={{
+                  display: 'flex',
+                }}
+              >
+                <Typography variant="h5">Post a Comment</Typography>
+                <Box
+                  sx={{
+                    margin: '36px',
+                    width: '100%',
+                  }}
+                >
+                  <TextField
+                    fullWidth
+                    id="outlined-basic"
+                    label="Write a response"
+                    variant="outlined"
+                    multiline
+                    minRows={5}
+                    value={commentText}
+                    onChange={(e) => setCommentText(e.target.value)}
+                  />
+                </Box>
+                <Grid
+                  item
+                  xs={12}
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    margin: '0px 36px ',
+                  }}
+                >
+                  <LoadingButton
+                    onClick={() => {
+                      onPostComment();
+                    }}
+                    loading={loading}
+                    sx={{}}
+                    variant="contained"
+                  >
+                    Post
+                  </LoadingButton>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
