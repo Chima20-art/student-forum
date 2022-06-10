@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Grid, Typography, Container, Paper } from '@mui/material';
+import { Grid, Typography, Container, Paper, IconButton } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import ResponsiveAppBar from '../../components/ResponsiveAppBar';
 import Link from 'next/link';
 import { getPost } from '../../utils/backendAPI';
+import Button from '@mui/material/Button';
+import MapsUgcIcon from '@mui/icons-material/MapsUgc';
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -12,7 +14,10 @@ import {
   TwitterIcon,
 } from 'next-share';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import timeSince from '../../utils/timeSince';
+import Image from 'next/image';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 export default function Post({ post }) {
   const router = useRouter();
@@ -22,8 +27,27 @@ export default function Post({ post }) {
     router.push('/');
   }
 
-  const { postedBy, content, category, title, likes, id, createdAt, comments } =
-    post ?? {};
+  const {
+    email: userEmail,
+    image: userImage,
+    name: userName,
+  } = session?.user ?? {};
+
+  const {
+    postedBy,
+    content,
+    category,
+    title,
+    likes,
+    id,
+    createdAt,
+    comments,
+    commentUsers,
+  } = post ?? {};
+
+  console.log('commentUsers', commentUsers);
+
+  const likedPost = likes?.includes(userEmail);
 
   return (
     <Grid
@@ -168,13 +192,44 @@ export default function Post({ post }) {
                 Started on {new Date(createdAt).toLocaleString()}
               </Typography>
             </Grid>
-            <Grid container item xs={12} sx={{ alignItems: 'center' }}>
+            <Grid
+              container
+              item
+              xs={12}
+              sx={{
+                alignItems: 'flex-start',
+                marginTop: '24px',
+              }}
+            >
               <Grid
                 item
                 xs={2}
-                sx={{ backgroundColor: 'red', padding: '1rem' }}
+                sx={{
+                  //backgroundColor: 'red',
+                  padding: '1rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
               >
-                <p>logo</p>
+                <Image
+                  width="80px"
+                  height="80px"
+                  src={postedBy?.image}
+                  style={{
+                    borderRadius: 50,
+                    width: '80px',
+                    height: '80px',
+                  }}
+                />
+                <Link href={'/user/' + postedBy?.email}>
+                  <a style={{}}>
+                    <Typography sx={{ margin: '8px 0px' }}>
+                      {postedBy?.name}
+                    </Typography>
+                  </a>
+                </Link>
               </Grid>
               <Grid
                 item
@@ -183,10 +238,92 @@ export default function Post({ post }) {
                   backgroundColor: '#fafafa',
                   border: '1px solid #f5f5f5',
                   padding: '1rem',
+                  height: '100%',
                 }}
               >
-                <Typography>{content}</Typography>
+                <Typography sx={{ fontSize: '1.6rem', color: 'gray' }}>
+                  {content}
+                  {content}
+                  {content}
+                </Typography>
               </Grid>
+            </Grid>
+            <Grid
+              container
+              item
+              xs={12}
+              sx={{
+                alignItems: 'center',
+                marginTop: '24px',
+                display: 'flex',
+                justifyContent: 'flex-end',
+              }}
+            >
+              <Grid
+                item
+                sx={{
+                  //backgroundColor: 'red',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  //backgroundColor: 'orange',
+                }}
+              >
+                {!likedPost && (
+                  <IconButton color="primary">
+                    <FavoriteBorderIcon color="primary" fontSize="large" />
+                  </IconButton>
+                )}
+                {likedPost && (
+                  <IconButton color="primary">
+                    <FavoriteIcon color="primary" fontSize="large" />
+                  </IconButton>
+                )}
+              </Grid>
+              <Grid
+                item
+                sx={{
+                  //backgroundColor: 'red',
+
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  backgroundColor: 'orange',
+
+                  marginLeft: '24px',
+                }}
+              >
+                <Button variant="contained" startIcon={<MapsUgcIcon />}>
+                  Reply
+                </Button>
+              </Grid>
+            </Grid>
+            <Grid
+              container
+              item
+              xs={12}
+              sx={{
+                alignItems: 'center',
+                marginTop: '24px',
+                display: 'flex',
+                justifyContent: 'flex-end',
+              }}
+            >
+              <Grid item xs={12}>
+                <Typography variant="h5">Comments</Typography>
+              </Grid>
+              {comments?.map((comment) => {
+                return (
+                  <Grid item container xs={12}>
+                    <Grid item xs={1} sx={{ backgroundColor: 'red' }}>
+                      <p>asdasd</p>
+                    </Grid>
+                    <Grid item xs={11}></Grid>
+                  </Grid>
+                );
+              })}
             </Grid>
           </Grid>
         </Grid>
