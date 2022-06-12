@@ -14,6 +14,7 @@
     "@emotion/server": "^11.4.0",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.8.2",
+    "@mui/lab": "^5.0.0-alpha.85",
     "@mui/material": "^5.8.1",
     "@mui/styles": "^5.8.0",
     "@next-auth/firebase-adapter": "^0.1.2-pr.183-76202b42.8",
@@ -21,9 +22,11 @@
     "firebase": "^9.8.1",
     "next": "12.1.6",
     "next-auth": "^4.3.4",
+    "next-share": "^0.14.0",
     "nodemailer": "^6.7.5",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-dom": "18.1.0",
+    "react-spinners": "^0.12.0"
   },
   "devDependencies": {
     "eslint": "8.15.0",

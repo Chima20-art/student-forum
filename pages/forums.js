@@ -9,33 +9,25 @@ import AddDiscussion from '../components/addDiscussion';
 import Link from 'next/link';
 import { TextField } from '@mui/material';
 import { useRouter } from 'next/router';
+import Loading from '../components/loading';
+import { getAllCategories, getAllPosts } from '../utils/backendAPI';
+import Icon from '@mui/material/Icon';
 
-export default function Forums() {
+export default function Forums({ allCategories, allPosts }) {
   const { data: session, status } = useSession();
   const router = useRouter();
 
   if (status == 'unauthenticated') {
-    router.push('/');
+    router.push('/login');
   }
 
-  const popularTopics = [
-    { icon: 'AccountBalanceIcon', name: 'Movies' },
-    { icon: 'AccountBalanceIcon', name: 'University' },
-    { icon: 'AccountBalanceIcon', name: 'Study Help' },
-    { icon: 'AccountBalanceIcon', name: 'Music' },
-    { icon: 'AccountBalanceIcon', name: 'Gaming' },
-    { icon: 'AccountBalanceIcon', name: 'Jobs' },
-    { icon: 'AccountBalanceIcon', name: 'Money' },
-    { icon: 'AccountBalanceIcon', name: 'Careers' },
-    { icon: 'AccountBalanceIcon', name: 'Sports & Health' },
-    { icon: 'AccountBalanceIcon', name: 'Hobbies' },
-    { icon: 'AccountBalanceIcon', name: 'Pop Culture' },
-    { icon: 'AccountBalanceIcon', name: 'Fashion & beauty' },
-  ];
+  if (status == 'loading') {
+    return <Loading />;
+  }
 
   return (
     <Box>
-      <ResponsiveAppBar status={status} />
+      <ResponsiveAppBar setCurrentPage={null} />
       <Grid
         sx={{
           maxWidth: { md: '85%', xs: '98%' },
@@ -82,24 +74,28 @@ export default function Forums() {
               paddingTop="15px"
             >
               {' '}
-              {popularTopics.map((topic) => (
+              {allCategories.map((category) => (
                 <Grid
                   container
                   item
                   xs={6}
                   md={3}
-                  key={topic.name}
+                  key={category.name}
                   margin="10px 0px"
                   alignItems="center"
                 >
-                  <Link href={'/forums/' + topic.name} key={topic.name}>
+                  <Link href={'/forums/' + category.id}>
                     <a
                       style={{
                         display: 'flex',
                         color: 'black',
+                        alignItems: 'center',
                       }}
                     >
-                      <AccountBalanceIcon />
+                      <Icon sx={{ fontSize: 30 }} color="primary">
+                        {category.iconName ?? 'home'}
+                      </Icon>
+
                       <Typography
                         component="p"
                         marginLeft="7px"
@@ -109,7 +105,7 @@ export default function Forums() {
                           fontSize: { xs: '15px', md: '18px' },
                         }}
                       >
-                        {topic.name}
+                        {category.name}
                       </Typography>
                     </a>
                   </Link>
@@ -118,9 +114,32 @@ export default function Forums() {
             </Grid>
           </Grid>
         </Paper>
-        <Discussions />
+        <Discussions posts={allPosts} />
         <AddDiscussion />
       </Grid>
     </Box>
   );
+}
+
+export async function getServerSideProps(context) {
+  const promises = [getAllCategories(), getAllPosts(0)];
+  const results = await Promise.all(promises);
+  let allCategories = results[0];
+  let allPosts = results[1];
+
+  if (allPosts) {
+    allPosts = allPosts.sort((a, b) => {
+      return a?.createdAt <= b?.createdAt ? 1 : -1;
+    });
+  }
+
+  //console.log('allCategories ', allCategories);
+  //console.log('allPosts ', allPosts);
+
+  return {
+    props: {
+      allCategories,
+      allPosts,
+    }, // will be passed to the page component as props
+  };
 }

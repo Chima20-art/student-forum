@@ -69,7 +69,7 @@ export async function removeComment(commentId) {
   }
 }
 
-export async function createPost(postedBy, content, category) {
+export async function createPost(postedBy, title, content, category) {
   try {
     let response = await fetch(
       'https://us-central1-studentforum-f11ce.cloudfunctions.net/createPost',
@@ -78,6 +78,7 @@ export async function createPost(postedBy, content, category) {
 
         body: JSON.stringify({
           postedBy,
+          title,
           category,
           content,
         }),
@@ -91,26 +92,27 @@ export async function createPost(postedBy, content, category) {
   } catch (error) {
     console.log('there was an error calling createPost');
     console.log(error);
+    return null;
   }
 }
 
-export async function addPostComment(commentId, postId) {
+export async function addPostComment(postedBy, content, postId) {
   try {
     let response = await fetch(
       'https://us-central1-studentforum-f11ce.cloudfunctions.net/addPostComment',
       {
-        method: 'POST', // or 'PUT'
-
+        method: 'POST',
         body: JSON.stringify({
-          commentId,
-          postId,
+          postedBy: postedBy,
+          content: content,
+          postId: postId,
         }),
       }
     );
     console.log('response', response);
     let responseText = await response.text();
-    let json = await JSON.parse(responseText);
-    return json;
+    // let json = await JSON.parse(responseText);
+    return responseText;
   } catch (error) {
     console.log('there was an error calling addPostComment');
     console.log(error);
@@ -226,8 +228,8 @@ export async function getAllCategories() {
 
     let responseText = await response.text();
     let json = await JSON.parse(responseText);
-    console.log('post by id', json);
-    return json;
+    //console.log('post by id', json);
+    return json ?? null;
   } catch (error) {
     console.log('there was an error calling getPost');
     console.log(error);
@@ -253,6 +255,77 @@ export async function getUsersByIds(ids) {
     return json;
   } catch (error) {
     console.log('there was an error calling getPost');
+    console.log(error);
+    return null;
+  }
+}
+
+export async function createCategory(name, description, iconName = null) {
+  try {
+    let response = await fetch(
+      'https://us-central1-studentforum-f11ce.cloudfunctions.net/createCategory',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          name: name,
+          description: description,
+          iconName: iconName,
+        }),
+      }
+    );
+    let responseText = await response.text();
+    console.log('responseText ', responseText);
+    let json = await JSON.parse(responseText);
+    return json;
+  } catch (error) {
+    console.log('there was an error calling getPost');
+    console.log(error);
+    return null;
+  }
+}
+
+export async function getPostsByUser(email, cursor) {
+  try {
+    let response = await fetch(
+      'https://us-central1-studentforum-f11ce.cloudfunctions.net/getPostsByUser',
+      {
+        method: 'POST',
+        redirect: 'follow',
+        body: JSON.stringify({
+          email: email,
+          cursor: cursor,
+        }),
+      }
+    );
+    let responseText = await response.text();
+    let json = await JSON.parse(responseText);
+
+    return json;
+  } catch (error) {
+    console.log('there was an error calling getAllPosts');
+    console.log(error);
+    return null;
+  }
+}
+
+export async function getCategory(id) {
+  try {
+    let response = await fetch(
+      'https://us-central1-studentforum-f11ce.cloudfunctions.net/getCategory',
+      {
+        method: 'POST',
+        redirect: 'follow',
+        body: JSON.stringify({
+          id: id,
+        }),
+      }
+    );
+    let responseText = await response.text();
+    let json = await JSON.parse(responseText);
+
+    return json;
+  } catch (error) {
+    console.log('there was an error calling getAllPosts');
     console.log(error);
     return null;
   }

@@ -12,16 +12,32 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { makeStyles } from '@mui/styles';
 import AddDiscussion from '../../components/addDiscussion';
+import Loading from '../../components/loading';
 
-const CategoryPage = (props) => {
+import { getPostsByCategory, getCategory } from '../../utils/backendAPI';
+import Discussions from '../../components/discussions';
+
+const CategoryPage = ({ posts, categoryData }) => {
   const classes = useStyles;
   const router = useRouter();
-  const { category } = router.query;
   const { data: session, status } = useSession();
 
+  if (status == 'loading') {
+    return <Loading />;
+  }
+
+  if (status == 'unauthenticated') {
+    router.push('/login');
+  }
+
   return (
-    <Grid>
-      <ResponsiveAppBar session={status} />
+    <Grid
+      sx={{
+        maxWidth: { md: '85%', xs: '98%' },
+        margin: '69px auto 20px 69px',
+      }}
+    >
+      <ResponsiveAppBar setCurrentPage={null} />
       <Grid
         container
         sx={{
@@ -32,7 +48,7 @@ const CategoryPage = (props) => {
           flexDirection: 'column',
         }}
       >
-        <Link href="/forums" key="forums" className={classes.link}>
+        <Link href="/forums" className={classes.link}>
           <Typography
             sx={{
               margin: '12px 0px',
@@ -45,38 +61,39 @@ const CategoryPage = (props) => {
             Back to All Discussions
           </Typography>
         </Link>
-        <Typography
-          sx={{
-            margin: '12px 0px',
-            color: '#1A76D2',
-            fontSize: '35px',
-          }}
-        >
-          {category} Forums
-        </Typography>
-        <Paper
-          elevation={3}
-          container
-          sx={{
-            margin: '20px auto ',
-            padding: '30px',
-            justifyContent: 'center',
-          }}
-        >
-          <Grid
-            item
-            key="category button"
-            container
+        {categoryData?.name && (
+          <Typography
             sx={{
-              alignItems: 'center',
-              justifyContent: 'flex-end',
+              margin: '12px 0px',
+              color: '#1A76D2',
+              fontSize: '35px',
             }}
           >
-            <Discussion />
-            <Discussion />
-            <Discussion />
-          </Grid>
-        </Paper>
+            {categoryData?.name} Forums
+          </Typography>
+        )}
+        {categoryData?.description && (
+          <Typography
+            sx={{
+              margin: '12px 0px',
+              fontWeight: 'normal',
+            }}
+            variant="h6"
+          >
+            {categoryData?.description}
+          </Typography>
+        )}
+
+        <Grid
+          item
+          key="category button"
+          container
+          sx={{
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+          }}
+        ></Grid>
+        <Discussions posts={posts} />
         <AddDiscussion />
       </Grid>
     </Grid>
@@ -91,3 +108,34 @@ const useStyles = makeStyles((theme) => ({
     color: 'red',
   },
 }));
+
+export async function getServerSideProps(context) {
+  const { category } = context.query ?? {};
+
+  let posts = [];
+  let categoryData = {};
+  //console.log('id is ', id);
+  if (category) {
+    let promises = [getPostsByCategory(category, 0), getCategory(category)];
+    promises = await Promise.all(promises);
+    const postsResponse = promises[0];
+    categoryData = promises[1];
+
+    //console.log('postResponse ', postResponse);
+    if (Array.isArray(postsResponse) && postsResponse?.length > 0) {
+      posts = postsResponse;
+    }
+  }
+
+  //console.log('posts ', posts);
+
+  //console.log('allCategories ', allCategories);
+  //console.log('allPosts ', allPosts);
+
+  return {
+    props: {
+      posts,
+      categoryData,
+    }, // will be passed to the page component as props
+  };
+}

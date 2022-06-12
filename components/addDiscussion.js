@@ -5,7 +5,6 @@ import Link from 'next/link';
 export default function AddDiscussion() {
   return (
     <Paper
-      container
       elevation={3}
       sx={{
         margin: '20px 0px',
@@ -13,10 +12,10 @@ export default function AddDiscussion() {
         justifyContent: 'center',
         alignItems: 'center',
         margin: 'auto',
+        width: '100%',
       }}
     >
       <Typography
-        item
         sx={{
           fontSize: '1.25em',
           fontWeight: '600',
@@ -27,7 +26,6 @@ export default function AddDiscussion() {
         Did not find what you are looking for ?
       </Typography>
       <Typography
-        item
         sx={{
           fontSize: '1.1em',
           fontWeight: '100',
@@ -41,7 +39,6 @@ export default function AddDiscussion() {
       <Typography align="center">
         <Link href="/createDiscussion" key="login page">
           <Button
-            item
             sx={{
               color: 'white',
               backgroundColor: '#2668F1',
