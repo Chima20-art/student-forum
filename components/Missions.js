@@ -63,19 +63,26 @@ export default function Missions() {
               <Grid container direction="row" spacing={4}>
                 <AimComponent
                   title="Networking"
-                  content="The GSF is a platform for student organisations to exchange ideas, practices and tactics. It allows us as student movements and grassroots activists from around the world to build relationships and networks with like minded organizations and natural allies such as teachers and trade unions."
+                  content="Networking  is an important way to keep a connection with people who share the same interests  and to get informations about the industry you might be interested in. 
+                  Networking also helps you to advance your career and gives you access to more job opportunities.  
+                  "
                 />
                 <AimComponent
-                  title="Networking"
-                  content="The GSF is a platform for student organisations to exchange ideas, practices and tactics. It allows us as student movements and grassroots activists from around the world to build relationships and networks with like minded organizations and natural allies such as teachers and trade unions."
+                  title="Cooperation"
+                  content=" A community where students cooperate and help each other is what our platform tries to achieve by acting ,working, and associating everyone together.We try to create a spirit of enthusiasm, enhance understanding and comprehension ability, engage critical thinking and analytical ideas among students along with enabling them to build positive and new relationships and provide the best possible performance in them."
                 />
                 <AimComponent
-                  title="Networking"
-                  content="The GSF is a platform for student organisations to exchange ideas, practices and tactics. It allows us as student movements and grassroots activists from around the world to build relationships and networks with like minded organizations and natural allies such as teachers and trade unions."
+                  title="Solidarity"
+                  content="
+                 Our platform focuses on giving  help to people  as well as it creates  a reinforced  common ground,  a place where 
+                   human can be considered and supported.The ability to perceive  and recognize  the full scope  of
+                    the comparison of obligations and commitments that are installed in our social nature can occur  just in an
+                     atmosphere of solidarity."
                 />
                 <AimComponent
-                  title="Networking"
-                  content="The GSF is a platform for student organisations to exchange ideas, practices and tactics. It allows us as student movements and grassroots activists from around the world to build relationships and networks with like minded organizations and natural allies such as teachers and trade unions."
+                  title="Capacity building"
+                  content="Capacity building is what every human being needs in their lives, gaining,improving, and retaining skills and knowledge. Our platform provides many possibilies to reach the highest level of knowledge about a specific subject, we kept in mind that  communicating  and sharing experience plays a huge role in capacity building, so the student forum is the perfect platform for that.
+                "
                 />
               </Grid>
             </Grid>
