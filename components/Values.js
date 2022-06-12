@@ -63,20 +63,32 @@ export default function Aims() {
             <Grid container direction="row" spacing={4}>
               <Grid container direction="row" spacing={4}>
                 <AimComponent
-                  title="Networking"
-                  content="The GSF is a platform for student organisations to exchange ideas, practices and tactics. It allows us as student movements and grassroots activists from around the world to build relationships and networks with like minded organizations and natural allies such as teachers and trade unions."
+                  title="Human Rights and Solidarity"
+                  content="We come together to urgently develop solidarity and collaboration, in order to achieve educational justice and as allies in a wider struggle for democracy, social justice and human rights.
+
+                  We do so by building this platform that practices democratic values itself, 
+                  energising our collective action and building democracy through our own horizontal structure, 
+                  putting the aspirations and needs of student representative bodies at the forefront of our work. 
+                "
                 />
                 <AimComponent
-                  title="Networking"
-                  content="The GSF is a platform for student organisations to exchange ideas, practices and tactics. It allows us as student movements and grassroots activists from around the world to build relationships and networks with like minded organizations and natural allies such as teachers and trade unions."
+                  title="global cooperation "
+                  content="Talking about  global  cooperation  is obviously talking about all countries or nations working  together  to accomplish global issues and missions. 
+                  Since the global  cooperation domain is committed  on a global scale in favor of globalization conducive and development. 
+                  The student forum focuses on certain themes that can be very important for each student to build a shiny future. "
+                />
+
+                <AimComponent
+                  title="Feminism"
+                  content="We understand that feminist politics in student organisations and movements are important for political, 
+                  economic, personal, and social equality. We recognise the rights of women and girls and stand together with all
+                   people because our struggles are interconnected and we are resolute in our fight to uphold the rights of people 
+                   in every country."
                 />
                 <AimComponent
-                  title="Networking"
-                  content="The GSF is a platform for student organisations to exchange ideas, practices and tactics. It allows us as student movements and grassroots activists from around the world to build relationships and networks with like minded organizations and natural allies such as teachers and trade unions."
-                />
-                <AimComponent
-                  title="Networking"
-                  content="The GSF is a platform for student organisations to exchange ideas, practices and tactics. It allows us as student movements and grassroots activists from around the world to build relationships and networks with like minded organizations and natural allies such as teachers and trade unions."
+                  title="Democracy"
+                  content="Democracy is a double sided sword where it gives us the right to decide from what the minorities already decided. 
+                  There for the student forum choose to be democratic with students and give them the opportunity to make decisions and to help them with the self-learning"
                 />
               </Grid>
             </Grid>
