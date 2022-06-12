@@ -393,7 +393,9 @@ export default function Post({ post }) {
                 }}
               >
                 <Button variant="contained" startIcon={<MapsUgcIcon />}>
-                  Reply
+                  <a style={{ textDecoration: 'none' }} href="#inputComment">
+                    Reply
+                  </a>
                 </Button>
               </Grid>
             </Grid>

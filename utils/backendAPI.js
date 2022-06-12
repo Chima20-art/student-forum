@@ -307,3 +307,26 @@ export async function getPostsByUser(email, cursor) {
     return null;
   }
 }
+
+export async function getCategory(id) {
+  try {
+    let response = await fetch(
+      'https://us-central1-studentforum-f11ce.cloudfunctions.net/getCategory',
+      {
+        method: 'POST',
+        redirect: 'follow',
+        body: JSON.stringify({
+          id: id,
+        }),
+      }
+    );
+    let responseText = await response.text();
+    let json = await JSON.parse(responseText);
+
+    return json;
+  } catch (error) {
+    console.log('there was an error calling getAllPosts');
+    console.log(error);
+    return null;
+  }
+}
