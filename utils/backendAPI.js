@@ -249,8 +249,10 @@ export async function getUsersByIds(ids) {
         }),
       }
     );
+    console.log('response getUsersByIds', response);
+
     let responseText = await response.text();
-    console.log('responseText ', responseText);
+    //console.log('responseText ', responseText);
     let json = await JSON.parse(responseText);
     return json;
   } catch (error) {
@@ -297,8 +299,12 @@ export async function getPostsByUser(email, cursor) {
         }),
       }
     );
+
+    console.log('response getPostsByUser', response);
     let responseText = await response.text();
+    console.log('responseText getPostsByUser', responseText);
     let json = await JSON.parse(responseText);
+    console.log('json getPostsByUser', json);
 
     return json;
   } catch (error) {

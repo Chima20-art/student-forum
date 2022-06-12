@@ -18,6 +18,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { styled } from '@mui/material/styles';
+import { useRouter } from 'next/router';
 
 const ResponsiveAppBar = (props) => {
   let { setCurrentPage } = props;
@@ -25,6 +26,7 @@ const ResponsiveAppBar = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const { data: session, status } = useSession();
+  const router = useRouter();
 
   const {
     email: userEmail,
@@ -114,9 +116,9 @@ const ResponsiveAppBar = (props) => {
               {status == 'authenticated'
                 ? pages.map((page) => (
                     <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center">
-                        {page.name} test
-                      </Typography>
+                      <Link href="/forums">
+                        <Typography textAlign="center">{page.name} </Typography>
+                      </Link>
                     </MenuItem>
                   ))
                 : null}
@@ -144,13 +146,15 @@ const ResponsiveAppBar = (props) => {
           <Box sx={{ flexGrow: 3, display: { xs: 'none', md: 'flex' } }}>
             {status == 'authenticated'
               ? pages.map((page) => (
-                  <Button
-                    key={page.name}
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: '#AD236D', display: 'block' }}
-                  >
-                    {page.name}
-                  </Button>
+                  <Link href="/forums" key={page.name}>
+                    <Button
+                      onClick={handleCloseNavMenu}
+                      sx={{ my: 2, color: '#AD236D', display: 'block' }}
+                      component="a"
+                    >
+                      {page.name}
+                    </Button>
+                  </Link>
                 ))
               : null}
           </Box>
@@ -259,10 +263,18 @@ const ResponsiveAppBar = (props) => {
                 onClose={handleCloseUserMenu}
               >
                 <MenuItem key="profile" onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">Profile</Typography>
+                  <Link href={'/user/' + userEmail}>
+                    <Typography textAlign="center">Profile</Typography>
+                  </Link>
                 </MenuItem>
                 <MenuItem key="Logout" onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center" onClick={signOut}>
+                  <Typography
+                    textAlign="center"
+                    onClick={async () => {
+                      await signOut();
+                      router.push('/');
+                    }}
+                  >
                     Logout
                   </Typography>
                 </MenuItem>
