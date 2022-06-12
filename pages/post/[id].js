@@ -187,7 +187,7 @@ export default function Post({ post }) {
                 Back to All Discussions
               </Typography>
             </Link>
-            >>
+            &gt;&gt;
             <Link href={'/forums/' + category?.id}>
               <Typography
                 sx={{
