@@ -12,16 +12,42 @@ import { useRouter } from 'next/router';
 import Loading from '../components/loading';
 import { getAllCategories, getAllPosts } from '../utils/backendAPI';
 import Icon from '@mui/material/Icon';
+import { useState, useEffect } from 'react';
 
-export default function Forums({ allCategories, allPosts }) {
+export default function Forums({}) {
   const { data: session, status } = useSession();
   const router = useRouter();
+
+  const [loading, setLoading] = useState(true);
+  const [allCategories, setAllCategories] = useState([]);
+  const [allPosts, setAllPosts] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const promises = [getAllCategories(), getAllPosts(0)];
+      const results = await Promise.all(promises);
+      let allCategoriesResponse = results[0];
+      let allPostsResponse = results[1];
+
+      if (allPostsResponse) {
+        allPostsResponse = allPostsResponse.sort((a, b) => {
+          return a?.createdAt <= b?.createdAt ? 1 : -1;
+        });
+
+        setAllPosts(allPostsResponse);
+      }
+      setAllCategories(allCategoriesResponse);
+
+      setLoading(false);
+    }
+    fetchData();
+  }, []);
 
   if (status == 'unauthenticated') {
     router.push('/login');
   }
 
-  if (status == 'loading') {
+  if (status == 'loading' || loading) {
     return <Loading />;
   }
 
@@ -119,27 +145,4 @@ export default function Forums({ allCategories, allPosts }) {
       </Grid>
     </Box>
   );
-}
-
-export async function getServerSideProps(context) {
-  const promises = [getAllCategories(), getAllPosts(0)];
-  const results = await Promise.all(promises);
-  let allCategories = results[0];
-  let allPosts = results[1];
-
-  if (allPosts) {
-    allPosts = allPosts.sort((a, b) => {
-      return a?.createdAt <= b?.createdAt ? 1 : -1;
-    });
-  }
-
-  //console.log('allCategories ', allCategories);
-  //console.log('allPosts ', allPosts);
-
-  return {
-    props: {
-      allCategories,
-      allPosts,
-    }, // will be passed to the page component as props
-  };
 }
