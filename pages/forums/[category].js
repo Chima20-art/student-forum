@@ -5,7 +5,7 @@ import { Typography } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Discussion from '../../components/discussion';
 import ResponsiveAppBar from '../../components/ResponsiveAppBar';
 import { useSession, signIn, signOut } from 'next-auth/react';
@@ -17,12 +17,38 @@ import Loading from '../../components/loading';
 import { getPostsByCategory, getCategory } from '../../utils/backendAPI';
 import Discussions from '../../components/discussions';
 
-const CategoryPage = ({ posts, categoryData }) => {
+const CategoryPage = ({}) => {
   const classes = useStyles;
   const router = useRouter();
+  const { category } = router.query;
   const { data: session, status } = useSession();
 
-  if (status == 'loading') {
+  const [posts, setPosts] = useState([]);
+  const [categoryData, setCategoryData] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      //console.log('id is ', id);
+      if (category) {
+        let promises = [getPostsByCategory(category, 0), getCategory(category)];
+        promises = await Promise.all(promises);
+        const postsResponse = promises[0];
+
+        setCategoryData(promises[1]);
+
+        //console.log('postResponse ', postResponse);
+        if (Array.isArray(postsResponse) && postsResponse?.length > 0) {
+          setPosts(postsResponse);
+        }
+      }
+
+      setLoading(false);
+    }
+    fetchData();
+  }, []);
+
+  if (status == 'loading' || loading) {
     return <Loading />;
   }
 
@@ -108,34 +134,3 @@ const useStyles = makeStyles((theme) => ({
     color: 'red',
   },
 }));
-
-export async function getServerSideProps(context) {
-  const { category } = context.query ?? {};
-
-  let posts = [];
-  let categoryData = {};
-  //console.log('id is ', id);
-  if (category) {
-    let promises = [getPostsByCategory(category, 0), getCategory(category)];
-    promises = await Promise.all(promises);
-    const postsResponse = promises[0];
-    categoryData = promises[1];
-
-    //console.log('postResponse ', postResponse);
-    if (Array.isArray(postsResponse) && postsResponse?.length > 0) {
-      posts = postsResponse;
-    }
-  }
-
-  //console.log('posts ', posts);
-
-  //console.log('allCategories ', allCategories);
-  //console.log('allPosts ', allPosts);
-
-  return {
-    props: {
-      posts,
-      categoryData,
-    }, // will be passed to the page component as props
-  };
-}
