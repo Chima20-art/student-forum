@@ -1,10 +1,13 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid, Paper, Typography } from '@mui/material';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import Loading from '../../components/loading';
 import ResponsiveAppBar from '../../components/ResponsiveAppBar';
 import { getPostsByUser, getUsersByIds } from '../../utils/backendAPI';
+import Image from 'next/image';
+import Discussions from '../../components/discussions';
+import AddDiscussion from '../../components/addDiscussion';
 
 const Profile = ({}) => {
   const router = useRouter();
@@ -60,11 +63,38 @@ const Profile = ({}) => {
           flexDirection: 'column',
         }}
       >
-        <pre>{JSON.stringify(posts, null, 2)}</pre>
-        <pre>{JSON.stringify(user, null, 2)}</pre>
+        {user?.name && (
+          <Grid
+            item
+            xs={12}
+            container
+            component={Paper}
+            elevation={6}
+            sx={{
+              padding: '24px',
+              margin: '24px 0px',
+              alignItems: 'center',
+            }}
+          >
+            <Grid item xs={2}>
+              <Image
+                src={user?.image}
+                width="150px"
+                height="150px"
+                style={{
+                  borderRadius: '150px',
+                }}
+              />
+            </Grid>
+            <Grid item xs={8}>
+              <Typography variant="h4"> {user?.name}</Typography>
+              <Typography variant="h6"> {user?.email}</Typography>
+            </Grid>
+          </Grid>
+        )}
         <Typography
           sx={{
-            margin: '24px 0px',
+            margin: '12px 0px',
             color: '#1A76D2',
             borderBottom: 'dashed',
             width: 'fit-content',
@@ -74,6 +104,8 @@ const Profile = ({}) => {
         >
           All My Posts
         </Typography>
+        <Discussions posts={posts} />
+        <AddDiscussion />
       </Grid>
     </Grid>
   );
