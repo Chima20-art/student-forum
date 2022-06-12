@@ -62,6 +62,7 @@ export default function Discussions({ posts }) {
         margin: '20px auto ',
         padding: '30px',
         justifyContent: 'center',
+        width: '100%',
       }}
     >
       <Grid container>

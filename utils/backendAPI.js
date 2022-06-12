@@ -101,12 +101,11 @@ export async function addPostComment(postedBy, content, postId) {
     let response = await fetch(
       'https://us-central1-studentforum-f11ce.cloudfunctions.net/addPostComment',
       {
-        method: 'POST', // or 'PUT'
-
+        method: 'POST',
         body: JSON.stringify({
-          postedBy,
-          content,
-          postId,
+          postedBy: postedBy,
+          content: content,
+          postId: postId,
         }),
       }
     );
@@ -295,6 +294,29 @@ export async function getPostsByUser(email, cursor) {
         body: JSON.stringify({
           email: email,
           cursor: cursor,
+        }),
+      }
+    );
+    let responseText = await response.text();
+    let json = await JSON.parse(responseText);
+
+    return json;
+  } catch (error) {
+    console.log('there was an error calling getAllPosts');
+    console.log(error);
+    return null;
+  }
+}
+
+export async function getCategory(id) {
+  try {
+    let response = await fetch(
+      'https://us-central1-studentforum-f11ce.cloudfunctions.net/getCategory',
+      {
+        method: 'POST',
+        redirect: 'follow',
+        body: JSON.stringify({
+          id: id,
         }),
       }
     );

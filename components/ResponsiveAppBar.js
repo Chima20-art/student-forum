@@ -114,7 +114,9 @@ const ResponsiveAppBar = (props) => {
               {status == 'authenticated'
                 ? pages.map((page) => (
                     <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center">{page.name}</Typography>
+                      <Typography textAlign="center">
+                        {page.name} test
+                      </Typography>
                     </MenuItem>
                   ))
                 : null}

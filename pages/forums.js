@@ -25,21 +25,6 @@ export default function Forums({ allCategories, allPosts }) {
     return <Loading />;
   }
 
-  const popularTopics = [
-    { icon: 'AccountBalanceIcon', name: 'Movies' },
-    { icon: 'AccountBalanceIcon', name: 'University' },
-    { icon: 'AccountBalanceIcon', name: 'Study Help' },
-    { icon: 'AccountBalanceIcon', name: 'Music' },
-    { icon: 'AccountBalanceIcon', name: 'Gaming' },
-    { icon: 'AccountBalanceIcon', name: 'Jobs' },
-    { icon: 'AccountBalanceIcon', name: 'Money' },
-    { icon: 'AccountBalanceIcon', name: 'Careers' },
-    { icon: 'AccountBalanceIcon', name: 'Sports & Health' },
-    { icon: 'AccountBalanceIcon', name: 'Hobbies' },
-    { icon: 'AccountBalanceIcon', name: 'Pop Culture' },
-    { icon: 'AccountBalanceIcon', name: 'Fashion & beauty' },
-  ];
-
   return (
     <Box>
       <ResponsiveAppBar setCurrentPage={null} />

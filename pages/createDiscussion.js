@@ -90,7 +90,7 @@ export default function CreateDiscussion({ allCategories }) {
           margin: ' 20px auto',
         }}
       >
-        <Link href="/forums" key="forums">
+        <Link href="/forums">
           <Typography
             sx={{
               margin: '12px 0px',
@@ -214,7 +214,7 @@ export default function CreateDiscussion({ allCategories }) {
                   color: '#F5F5F5',
                 }}
               >
-                <Link href="/createDiscussion" key="createDiscussion">
+                <Link href="/createDiscussion">
                   <Button
                     sx={{
                       color: 'white',
