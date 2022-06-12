@@ -72,7 +72,7 @@ export default function Forums({}) {
             margin: '25px 0px',
           }}
         >
-          Student Edge Youth Forums
+          The digital university student forums
         </Typography>
         <Paper elevation={2}>
           <Grid
