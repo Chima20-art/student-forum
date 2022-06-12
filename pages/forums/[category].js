@@ -41,7 +41,7 @@ const CategoryPage = (props) => {
           flexDirection: 'column',
         }}
       >
-        <Link href="/forums" key="forums" className={classes.link}>
+        <Link href="/forums" className={classes.link}>
           <Typography
             sx={{
               margin: '12px 0px',

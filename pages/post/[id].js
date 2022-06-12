@@ -31,17 +31,21 @@ import Image from 'next/image';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Box } from '@mui/system';
 
-import { addPostComment, addPostLike } from '../../utils/backendAPI';
+import {
+  addPostComment,
+  addPostLike,
+  addCommentLike,
+} from '../../utils/backendAPI';
 
 export default function Post({ post }) {
   const router = useRouter();
   const { data: session, status } = useSession();
   const [commentText, setCommentText] = useState('');
   const [loading, setLoading] = useState(false);
-  const [didLikePost, setDidLikePost] = useState(false);
+  const [postState, setPostState] = useState(post ?? {});
 
   if (!post && typeof window != 'undefined') {
-    router.push('/');
+    //router.push('/');
   }
 
   const {
@@ -60,7 +64,7 @@ export default function Post({ post }) {
     createdAt,
     comments,
     commentUsers,
-  } = post ?? {};
+  } = postState;
 
   const likedPost = likes?.includes(userEmail);
 
@@ -77,7 +81,7 @@ export default function Post({ post }) {
         image: userImage,
         name: userName,
       });
-      comments.unshift({
+      comments.push({
         postedBy: userEmail,
         content: commentText,
         likes: [],
@@ -91,10 +95,20 @@ export default function Post({ post }) {
   const likePost = async () => {
     console.log('likePost');
     if (userEmail && id) {
-      const likePost = await addPostComment(userEmail, id);
+      const likePost = await addPostLike(userEmail, id);
       console.log('likePost ', likePost);
       likes.push(userEmail);
-      setDidLikePost(true);
+      setPostState({
+        postedBy,
+        content,
+        category,
+        title,
+        likes,
+        id,
+        createdAt,
+        comments,
+        commentUsers,
+      });
     } else {
       console.log('userEmail or id is null ');
       console.log('userEmail ', userEmail);
@@ -102,7 +116,29 @@ export default function Post({ post }) {
     }
   };
 
-  const likeComment = async (commentId) => {};
+  const likeComment = async (id, userId) => {
+    if ((id, userId)) {
+      const commentLike = await addCommentLike(id, userId);
+      comments = comments.map((item) => {
+        if (id == item.id) {
+          item.likes.push(useEffect);
+        }
+        return item;
+      });
+
+      setPostState({
+        postedBy,
+        content,
+        category,
+        title,
+        likes,
+        id,
+        createdAt,
+        comments,
+        commentUsers,
+      });
+    }
+  };
 
   return (
     <Grid
@@ -136,7 +172,7 @@ export default function Post({ post }) {
             }}
             maxWidth="xl"
           >
-            <Link href="/forums" key="forums">
+            <Link href="/forums">
               <Typography
                 sx={{
                   margin: '12px 0px',
@@ -152,7 +188,7 @@ export default function Post({ post }) {
               </Typography>
             </Link>
             >>
-            <Link href={'/forums/' + category?.id} key="forums">
+            <Link href={'/forums/' + category?.id}>
               <Typography
                 sx={{
                   margin: '12px 0px',
@@ -326,7 +362,7 @@ export default function Post({ post }) {
                   //backgroundColor: 'orange',
                 }}
               >
-                {!likedPost && !didLikePost && (
+                {!likedPost && (
                   <IconButton
                     color="primary"
                     onClick={() => {
@@ -336,7 +372,7 @@ export default function Post({ post }) {
                     <FavoriteBorderIcon color="primary" fontSize="large" />
                   </IconButton>
                 )}
-                {(likedPost || didLikePost) && (
+                {likedPost && (
                   <IconButton color="primary">
                     <FavoriteIcon color="primary" fontSize="large" />
                   </IconButton>
@@ -383,7 +419,7 @@ export default function Post({ post }) {
                 commentUser = commentUser?.length > 0 ? commentUser[0] : {};
 
                 return (
-                  <>
+                  <div key={comment.id} style={{ width: '100%' }}>
                     <Grid item container xs={12} sx={{ margin: '12px 0px' }}>
                       <Grid
                         item
@@ -431,7 +467,12 @@ export default function Post({ post }) {
                           }}
                         >
                           {!comment?.likes?.includes(userEmail) ? (
-                            <IconButton color="primary">
+                            <IconButton
+                              color="primary"
+                              onClick={() => {
+                                likeComment(comment.id, commentUser);
+                              }}
+                            >
                               <FavoriteBorderIcon
                                 color="primary"
                                 fontSize="small"
@@ -471,7 +512,7 @@ export default function Post({ post }) {
                       </Grid>
                     </Grid>
                     <Divider orientation="horizontal" sx={{ width: '100%' }} />
-                  </>
+                  </div>
                 );
               })}
             </Grid>
@@ -505,7 +546,7 @@ export default function Post({ post }) {
                 >
                   <TextField
                     fullWidth
-                    id="outlined-basic"
+                    id="inputComment"
                     label="Write a response"
                     variant="outlined"
                     multiline
@@ -546,8 +587,12 @@ export default function Post({ post }) {
 export async function getServerSideProps(context) {
   const { id } = context.query ?? {};
   let post = null;
+
+  console.log('id is ', id);
   if (id) {
     const postResponse = await getPost(id);
+
+    console.log('postResponse ', postResponse);
     if (postResponse?.id) {
       post = postResponse;
     }

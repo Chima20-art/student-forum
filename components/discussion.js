@@ -24,7 +24,7 @@ const Discussion = ({ post }) => {
     <Grid
       item
       container
-      key="discussion"
+      key={id}
       sx={{
         justifyContent: 'space-between',
         padding: '10px 0px 0px 0px',
